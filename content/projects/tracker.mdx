@@ -1,0 +1,109 @@
+---
+title: "Tracker - Competitive Programming Contest Hub"
+description: "A centralized platform aggregating contests from LeetCode, CodeChef, and Codeforces"
+tech: ["React", "Express.js", "MongoDB", "Node-cron"]
+
+image: "/tracker.png"
+---
+
+# From Chaos to Clarity: Building a Contest Aggregator
+
+How missing one too many coding contests led me to build an automated tracking system that competitive programmers rely on.
+
+---
+
+## The Spark
+
+It started with frustration.
+
+I was deep into competitive programming, grinding LeetCode, CodeChef, and Codeforces. But I kept missing contests. Why? Because checking three different platforms multiple times a day was exhausting. I'd forget to check one, miss a contest I wanted to participate in, and then scramble to find information afterward.
+
+**There had to be a better way.**
+
+I wanted a single dashboard where I could see everything—upcoming contests, past results—all in one place. When I couldn't find a tool that did this well, I decided to build it myself.
+
+---
+
+## The Vision
+
+**One Dashboard. All Contests.**
+
+I wanted to strip away the platform-hopping and build a hub where competitive programmers could:
+
+1. **Track** all upcoming contests across LeetCode, CodeChef, and Codeforces
+2. **Filter** by platform or view everything at once
+3. **Review** past contests and results
+4. **Bookmark** contests to never miss the ones that matter
+
+### The Stack
+
+**React + Vite** • **Express.js** • **MongoDB** • **Node-cron** • **TailwindCSS + ShadCN**
+
+---
+
+## Engineering Highlights
+
+### 1. The Automation Engine (Cron Jobs)
+
+One of the biggest challenges was keeping data fresh across three different APIs without manual intervention.
+
+**The Solution:**
+I built an automated pipeline using **Node-cron**.
+
+- Cron jobs run every couple of hours to fetch contest data from LeetCode, CodeChef, and Codeforces APIs
+- The system checks for contests that have recently ended and updates their status
+- Handles API rate limits and failures gracefully with retry logic
+- _Result:_ Always up-to-date contest information without any manual work
+
+### 2. Client-Side Persistence (LocalStorage Bookmarks)
+
+Users needed to save contests without requiring authentication.
+
+**The Fix:**
+I used `localStorage` for a lightweight bookmarking system.
+
+- Users can bookmark any contest with a single click
+- Bookmarks persist across sessions without requiring a backend
+- Filter and view bookmarked contests separately
+- _Result:_ Simple, fast, and zero friction for users
+
+### 3. Smart Filtering System
+
+With hundreds of contests across three platforms, users needed a way to cut through the noise.
+
+**The Approach:**
+
+- Multi-platform filtering—select one, two, or all three platforms simultaneously
+- Toggle between upcoming and past contests
+- Clean, responsive UI built with TailwindCSS and ShadCN components
+- _Result:_ Users can find exactly what they're looking for in seconds
+
+---
+
+## What I Learned
+
+Building this platform taught me that **automation is everything**.
+
+Early on, I thought about manually updating contests or requiring users to register. I learned that the less friction there is, the more valuable the tool becomes. Automated cron jobs + localStorage bookmarks meant users could just show up and use it—no signup, no hassle.
+
+I also learned that **combining multiple APIs** requires careful error handling and rate limit management. Each platform has quirks, and building a robust scraping/fetching system taught me a lot about resilient backend architecture.
+
+---
+
+## Current Limitations & Future Optimizations
+
+Although the platform is fully functional, there are optimizations that can improve performance:
+
+**Database-Level Pagination** - Currently, all contests are fetched in a single instance. Implementing limit/skip or cursor-based pagination would improve performance as the dataset grows.
+
+**Client-Side Caching with Zustand/React-Query** - Adding a state management library to cache contest data would reduce unnecessary API calls and improve load times.
+
+---
+
+## Roadmap
+
+**Email/Calendar Integration** - Allow users to subscribe to contests and receive automated reminders before they start. Integration with Google Calendar or Outlook to sync schedules directly.
+
+**Push Notifications** - Real-time browser notifications for contests starting soon.
+
+**User Analytics Dashboard** - Track participation history, performance trends, and contest streaks.

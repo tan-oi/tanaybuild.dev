@@ -1,0 +1,86 @@
+---
+title: "Inagiffy - Dynamic Learning Maps"
+description: "Interactive node-based learning path generator powered by Gemini APIs"
+tech: ["Next.js", "TypeScript", "Tailwind CSS", "Gemini APIs", "Shadcn UI"]
+image: "/inagiffy.png"
+---
+
+# Charting the Unknown: AI-Driven Learning Paths
+
+<section className="text-xl text-muted-foreground mb-8">
+  Transforming vague curiosity into structured learning journeys using
+  Generative AI and custom node visualization.
+</section>
+
+---
+
+## The Concept
+
+Learning a new skill is often overwhelming. You know _what_ you want to learn, but not the _order_ in which to learn it.
+**Inagiffy** solves this by generating personalized, interactive roadmaps.
+
+Users simply input a topic (e.g., "Advanced React Patterns"), and the application consults **Gemini APIs** to construct a logical dependency tree, considering the user's prior experience.
+
+---
+
+### The Stack
+
+**Next.js** • **TypeScript** • **Gemini APIs** • **Shadcn UI**
+
+---
+
+## Engineering Deep Dive: The "No-Lib" Layout Engine
+
+The biggest challenge wasn't generating the data—it was visualizing it.  
+Standard graph libraries are powerful but heavy. I wanted something lightweight and fully custom.
+
+### The Challenge
+
+LLMs return abstract lists of concepts and relationships. They don't return X/Y coordinates.  
+How do you turn a JSON object of "nodes" and "edges" into a beautiful tree without using a heavy force-directed graph library?
+
+### The Solution: Recursive Tree Traversal
+
+I wrote a custom mapping engine (`lib/map-transform.ts`) that treats the data as a directed acyclic graph (DAG).
+
+1. **Root Identification:** The algorithm scans for nodes with zero incoming edges to identify the starting concepts.
+2. **Recursive Placement:** It traverses the tree depth-first.
+3. **Coordinate Calculation:**
+   - `Y` (Vertical): Determined by the node's "generation" or depth in the tree.
+   - `X` (Horizontal): Calculated dynamically based on siblings to prevent overlap.
+
+**The Result:** A lightweight, deterministic layout system that renders instantly, with zero client-side heavy lifting.
+
+---
+
+## Why Gemini APIs?
+
+Latency.  
+Interactive maps only work when generation feels instant. The API balance between reasoning and speed made this viable in real-time usage.
+
+---
+
+## Future Plans
+
+{}
+
+<section className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+  <div className="p-4 border rounded-lg bg-card">
+    <h3 className="font-bold flex items-center gap-2">
+      <GitBranch className="w-4 h-4" /> Branching Paths
+    </h3>
+    <div className="text-sm text-muted-foreground">
+      Allowing users to "fork" their learning path when they discover a
+      sub-niche they love.
+    </div>
+  </div>
+
+  <div className="p-4 border rounded-lg bg-card">
+    <h3 className="font-bold flex items-center gap-2">
+      <Map className="w-4 h-4" /> Progress Tracking
+    </h3>
+    <div className="text-sm text-muted-foreground">
+      Local-storage based state management to tick off nodes as "Learned".
+    </div>
+  </div>
+</section>

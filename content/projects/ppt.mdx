@@ -1,0 +1,96 @@
+---
+title: "PPT - AI-Powered Presentation Builder"
+description: "A modern presentation creation tool inspired by Chronicle, helping users create stunning slides in minutes"
+tech: ["Next.js", "TypeScript", "Tailwind CSS", "OpenAI API", "Framer Motion"]
+
+image: "/ppt.jpg"
+---
+
+# From Frustration to Flow: Reimagining the Presentation Engine
+
+How a stressful academic project sparked a deep dive into frontend engineering, scaling architectures, and the future of generative UI.
+
+---
+
+## The Spark
+
+It started with a bottleneck.
+
+Me and my friends were building a project we loved, but we hit a wall: **Presentation Day.** I was tasked with building the slide decks. Despite my enthusiasm for the code, I found the act of pixel-pushing slides jarring. It was stressful, repetitive, and took hours of valuable development time.
+
+Then, I discovered _Chronicle_. I was **completely blown away** by the fluidity of their interface. It wasn't just about "making slides"—it was about how the data flowed, how the AI reasoned, how the viewport adapted. I became obsessed.
+
+I spent hours inspecting their network requests, reverse-engineering their architecture, trying to understand the magic. The way they handled state management, the streaming responses, the real-time canvas updates—it was all so elegant. _Chronicle_ wasn't just a tool; it was a masterclass in frontend engineering.
+
+**That deep dive changed everything.** I didn't just want to use a tool like this—I wanted to _build_ one. Not just to solve my own frustration, but to master the engineering required to build a complex, viewport-aware, AI-driven design tool from the ground up.
+
+---
+
+## The Vision
+
+**3 Clicks to Done.**
+
+I wanted to strip away the noise and build a platform where users could:
+
+1.  **Create** custom decks from scratch or a simple prompt.
+2.  **Refine** the AI's logic by editing outlines before pixel generation.
+3.  **Deploy** instantly to the web.
+
+### The Stack
+
+**Next.js** • **TypeScript** • **Tiptap** • **Zustand** • **Redis** • **Shadcn** • **Tailwind**
+
+---
+
+## Engineering Highlights
+
+### 1. The "Ghost" State (Redis Optimization)
+
+One of the most interesting challenges was distinguishing between a "fresh" AI generation and a presentation that already exists. I could have hammered the primary database, but that felt inefficient.
+
+**The Solution:**
+I implemented an ephemeral state utilizing **Redis**.
+
+- When a user hits `/create/generate`, I assign a temporary ID to the outline.
+- This "idea" is stored in Redis with a **5-minute TTL (Time To Live)**.
+- I use `GETDEL` to retrieve the data. This atomic operation fetches the prompt and immediately deletes it from the cache.
+- _Result:_ Zero stale data, reduced DB load, and a snappy user experience.
+
+### 2. Pixel-Perfect Consistency (The Scaling Engine)
+
+Preventing layout shifts across devices is the hardest part of presentation software. A slide on a phone must look identical to a slide on a 4k monitor.
+
+**The Fix:**
+I bypassed standard responsive breakpoints for the slide canvas. Instead, I engineered a scaling system using CSS `transform`.
+
+- The slide container has a fixed logical `Height x Width`.
+- The app calculates the user's viewport and applies a scale factor.
+- This ensures the AI never generates "falsy" content due to layout shifts—what you see is exactly what you present.
+
+### 3. Optimistic UI Updates (Buffer State Pattern)
+
+Real-time editing needs to feel instant, but hammering the state store on every keystroke kills performance.
+
+**The Approach:**
+I implemented a buffer state layer between the editor and the main presentation store.
+
+- Widget updates are captured in a local buffer during active editing.
+- On blur (losing focus), the buffer commits to the main Zustand store.
+- An auto-save mechanism periodically syncs the store to the database.
+- _Result:_ Buttery-smooth editing with zero lag, while maintaining data integrity and automatic persistence.
+
+---
+
+## What I Learned
+
+Building this platform taught me that **constraint is a feature.**
+
+Early on, I thought I needed infinite widgets. I learned that after a certain point, everything starts to look the same. The real value lies in a curated set of flexible, high-quality components that users can remix, rather than an infinite list of rigid templates.
+
+## Roadmap
+
+**BYOK Support** - "Bring Your Own Key" for power users who want to use their own LLM quotas.
+
+**Advanced Layouts** - Expanding the widget library with interactive data visualizations.
+
+**Importing background and themes** - Allowing users to bring in their own set of background and create the themes that suits their needs.
