@@ -31,7 +31,7 @@ export const projects: Project[] = [
     ],
     link: "https://glyph.tanaybuild.dev",
     image: "https://ik.imagekit.io/wqcnxo6ayi/ppt.png",
-    status: "wip",
+    status: "completed",
     video: "https://www.youtube.com/watch?v=V33sitDROyg",
   },
   {

@@ -8,9 +8,9 @@ image: "/ppt.jpg"
 
 # From Frustration to Flow: Reimagining the Presentation Engine
 
-_Last updated: November 29, 2025_
+_Last updated: December 10, 2025_
 
-How a stressful academic deadline sparked an idea worth building—and everything I learned along the way.
+How a stressful academic deadline sparked an idea worth building and everything I learned along the way.
 
 ---
 
@@ -84,6 +84,8 @@ I implemented a buffer state layer between the editor and the main presentation 
 - An auto-save mechanism periodically syncs the store to the database
 - _Result:_ Buttery-smooth editing with zero lag, while maintaining data integrity and automatic persistence
 
+---
+
 ## What I Learned
 
 **1. Constraint is a feature, not a limitation.**
@@ -96,9 +98,18 @@ Having even a loose blueprint helped me spot potential issues early and build wi
 
 ---
 
-## What's Next
+## Recent Updates
 
-**BYOK Support** – "Bring Your Own Key" for users who want to use their own LLM API quotas
+**Full BYOK Architecture** – Completely restructured the platform around a "Bring Your Own Key" model with two distinct modes:
+
+- **Guest Mode:** Create presentations locally with browser-based storage (IndexedDB), perfect for quick prototyping without sign-up
+- **Auth Mode:** Full cloud persistence, enabling presentation sharing and cross-device access
+
+This dual-mode approach gives users maximum flexibility, casual users can jump in instantly, while power users get full cloud capabilities
+
+---
+
+## Ideas for Future Explorers
 
 **Advanced Layouts** – Expanding the widget library with interactive data visualizations
 
