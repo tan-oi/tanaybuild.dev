@@ -1,15 +1,31 @@
 import { Mail, ArrowUpRight } from "lucide-react";
 
 import { TooltipWrapper } from "../ui/tooltip-wrapper";
-import { contactTags } from "@/lib/data";
+import { contactTags, experiences } from "@/lib/data";
 import { ICON_REGISTRY } from "../icons/registry";
 import Link from "next/link";
 import CTA from "../cta";
 
 export function Hero() {
+  const hasCurrentRole = experiences.some(
+    (e) => e.end.toLowerCase() === "present"
+  );
+  const isOpenToWork = experiences.length > 0 && !hasCurrentRole;
+
   return (
     <section className="mb-24 flex flex-col items-start gap-6">
       <div className="space-y-2">
+        {isOpenToWork && (
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 mb-1">
+            <span className="relative flex size-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75" />
+              <span className="relative inline-flex size-1.5 rounded-full bg-sky-500" />
+            </span>
+            <span className="text-[10px] uppercase tracking-[0.15em] text-sky-400 font-mono font-medium">
+              Open to work
+            </span>
+          </div>
+        )}
         <h1 className="font-mono text-base font-medium tracking-tight text-primary">
           <span>Hey there,</span>
 
