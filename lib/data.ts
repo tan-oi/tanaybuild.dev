@@ -117,6 +117,37 @@ export const projects: Project[] = [
   },
 ];
 
+export interface Experience {
+  id: string;
+  role: string;
+  company: string;
+  companyUrl?: string;
+  start: string;
+  end: string;
+  description: string;
+  note?: string;
+  tags?: string[];
+  slug?: string;
+  image?: string;
+}
+
+export const experiences: Experience[] = [
+  {
+    id: "1",
+    role: "Software Engineer",
+    company: "Chronicle",
+    companyUrl: "https://chroniclehq.com/",
+    start: "Jan 2026",
+    end: "Jun 2026",
+    description:
+      "Worked across multiple streams. Owned and handled the exports service in close collaboration with the pod lead.",
+    note: "first experience, had v fun working with the best team :)",
+    tags: ["TypeScript", "React"],
+    slug: "chronicle",
+    image: "/chronicle.png",
+  },
+];
+
 export const contactTags = [
   {
     iconTag: "LinkedIn",

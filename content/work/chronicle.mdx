@@ -1,0 +1,138 @@
+---
+title: "Chronicle"
+description: "Notes, thoughts, and work from my time at Chronicle."
+---
+
+# Chronicle
+
+# My time at Chronicle
+
+To start with - Chronicle is a modern
+presentation tool, carefully built for teams that need to create high-quality,
+on-brand presentations at scale.
+
+I joined as a Frontend Dev (kind of funny that I ended up doing well under 10%
+frontend) in January 2026, as part of the Team Ready Pod. My main responsibility
+was building and maintaining the exports system, though I worked on a fair bit
+outside of that too — more on those below.
+
+## Exports
+
+I'll start with my favourite part: **Exports**. I added new export configurations
+and formats — background support, image-upload support, and a brand-new
+**raster-based PDF** export that screenshots and clips the rendered document,
+guaranteeing pixel-perfect output, exactly what you see on screen. On top of that, I
+overhauled our existing **standard (vector) PDF** export, which had grown bloated
+and slow — making it noticeably faster and far lighter to generate. Both formats now
+ship side by side behind feature flags, so users can pick pixel-perfect fidelity or
+lighter, text-selectable files depending on what they need.
+
+I also revamped our **other export types to use the same screenshot-based approach**,
+which brought meaningful time savings across the board. The speed and file-size
+wins hit one of our biggest user complaints head-on.
+
+The impact was big on both fronts. Export time used to climb with deck size, bigger
+decks took noticeably longer whereas the new flow stays roughly constant, cutting
+export time by up to ~65% on larger decks. File sizes came down hard too: a 21-page
+PDF that used to weigh **38.8MB now exports at a flat 14MB, around 64% smaller**.
+
+## Image optimization
+
+Images were the single biggest contributor to how heavy our exports (and pages)
+got. A user could drop in a 4MB full-resolution photo that we'd then ship as-is,
+even if it was only ever rendered as a small thumbnail. So I built an
+image-optimization layer to fix that at the source.
+
+Two things were happening:
+
+- **Format** — we served images through our CDN, so I had it convert them to
+  **WebP** on the fly, which is dramatically lighter than the original PNG/JPEG
+  with no visible quality loss.
+- **Size** — converting wasn't enough. A full-res image squeezed into a small slot
+  is still wasted bytes. So I added **dynamic downsampling**: each image is
+  requested at the actual pixel dimensions it's being rendered at, so we only ever
+  fetch what we'll actually display.
+
+A few details I cared about along the way:
+
+- **Independent feature flags** for the export path and the live app, so each could
+  be rolled out and tuned separately without one affecting the other.
+- I pulled the core URL-resolution logic out into a **pure, unit-tested function** —
+  it's the kind of thing that's easy to get subtly wrong (env edge cases,
+  already-optimized URLs), so I wanted it covered and easy to reason about.
+- **Skipping optimization for cross-environment URLs** — if someone pasted a slide
+  from prod into a dev workspace, we don't want to rewrite a URL that points at a
+  different environment's CDN, so those get left untouched.
+
+The payoff was huge and stacks with the raster export work: in one real case, a
+**21-page PDF went from 38.8MB down to a flat 14MB — roughly 64% smaller** — just
+from lighter source images. Smaller exports, faster page loads, and a direct hit on
+one of our biggest user complaints, all from the same change.
+
+## Refresh banner for new builds
+
+This one started from a real, recurring pain — for both us and our users.
+
+Our frontend builds were stored in **S3 and served through CloudFront**. The catch:
+every time we shipped a new build, the old assets in S3 were replaced by the new
+ones. So if a user had the app open during a production release, the `index.html`
+already loaded in their browser was still pointing at the _old_ JS/CSS files —
+which no longer existed. The moment they made their next change or navigated, the
+app would try to fetch those now-deleted assets and **error out instantly**. Not a
+great experience, especially mid-edit.
+
+There was a second, softer problem too. We shipped fast — sometimes multiple
+releases a day - so improvements could land without users ever noticing. Say we
+**shipped a brand-new export format**: a user with the app already open wouldn't
+see it show up in their export menu until they happened to reload. They'd simply
+miss out on something we'd just built for them, and we wanted to close that gap.
+
+So, in collaboration with our **infrastructure engineer**, we built a **refresh
+banner**. Every build ships with a unique version identifier baked in, and we
+compare it against the latest deployed version — the moment they don't match, a
+banner pops up _informing_ the user that a new version is available and inviting
+them to refresh. We deliberately don't refresh automatically: someone could be
+mid-edit, and yanking the page out from under them would be far worse UX than the
+problem we're solving — so the choice stays with the user.
+
+The result: no more sudden stale-asset errors mid-session, and users actually get
+told when there's something new.
+
+---
+
+## Things I've learned
+
+A lot of this job was my first real exposure to how software actually ships, and
+that taught me as much as the code did.
+
+- **How teams actually ship software.** I'd always been curious about what happens
+  after you write the code — how things go from a branch to something real users
+  touch. Here I got to see it: we cut releases, often daily, and we run the same
+  code across different environments (development, testing, production) that each
+  serve a different purpose. Understanding that flow changed how I think about the
+  work — you're not just writing a feature, you're shipping it safely through a
+  pipeline.
+
+- **Feature flags.** Funnily enough, I'd never properly used feature flags before.
+  Now I get why they're everywhere — being able to ship code that's "off," roll it
+  out to a slice of users, and tune or kill it without a redeploy is genuinely
+  freeing. A good chunk of my export and image-optimization work shipped behind
+  flags for exactly this reason.
+
+- **Reading logs and debugging real customer issues.** Early on, a production bug
+  with an actual user attached to it felt intimidating. Over time I got comfortable
+  digging through logs, tracing what actually happened, and fixing it — and that
+  confidence is probably the thing I'm most glad I picked up.
+
+- **How much testing a feature really takes.** I learned that shipping something
+  isn't done when the code works on my machine — every feature has to be tested
+  properly, both by the dev building it and by QA where there's a hand-off. Building
+  with testability in mind, and seeing things get caught before they reached users,
+  gave me a lot more respect for that part of the process.
+
+- **Ownership flipped the dynamic.** When I joined, I'd lean on my senior to help me
+  make sense of a customer issue. Somewhere along the way things changed —
+  I started to pin down bugs faster and intuitively, and honestly it's because I wrote the
+  stuff and I owned it. I know which flags are on, I know what causes what, and that
+  context turns a confusing report into an obvious fix. Watching that shift happen in
+  myself has been the most rewarding part.
