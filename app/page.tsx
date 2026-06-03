@@ -9,7 +9,7 @@ import ProjectSection from "@/components/projects/project-section";
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient text-foreground selection:bg-primary selection:text-primary-foreground ">
-      <main className="max-w-xl mx-auto px-6 py-24 font-sans">
+      <main className="max-w-2xl mx-auto px-6 py-24 font-sans">
         <Hero />
         <ExperienceSection />
         <ProjectSection />

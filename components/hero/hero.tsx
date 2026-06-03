@@ -26,16 +26,16 @@ export function Hero() {
             </span>
           </div>
         )}
-        <h1 className="font-mono text-base font-medium tracking-tight text-primary">
-          <span>Hey there,</span>
-
-          <span className="tracking-tight text-2xl ml-2">I'm Tanay </span>
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          Hey there,
+        </p>
+        <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-primary">
+          I&apos;m Tanay
         </h1>
-        <p className="text-muted-foreground leading-relaxed max-w-md">
-          I write <span className="text-accent font-bold">code</span> with a
-          sprinkle of chaos and a lot of caffeine. Focused on making things
-          cool, fun to use, and i learn things by messing around on the internet
-          haha.
+        <p className="text-muted-foreground leading-relaxed max-w-md pt-2">
+          I write code with a sprinkle of chaos and a lot of caffeine. Focused
+          on making things cool, fun to use, and i learn things by messing
+          around on the internet haha.
         </p>
       </div>
 
