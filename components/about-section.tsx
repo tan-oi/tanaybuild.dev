@@ -24,8 +24,11 @@ export default function AboutSection() {
               <h3 className="text-sm font-medium text-foreground">Now</h3>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Building{" "}
-              <span className="text-foreground font-medium">Glyph</span>
+              Trying to understand how{" "}
+              <span className="text-foreground font-medium">
+                search retrieval / information retrieval
+              </span>{" "}
+              works.
             </p>
           </div>
 

@@ -21,7 +21,7 @@ export default function ProjectSection() {
         </div>
 
         <div className="grid gap-8">
-          {projects.slice(0, 4).map((item, i) => (
+          {projects.slice(0, 2).map((item, i) => (
             <ProjectCard
               key={item.id}
               title={item.title}

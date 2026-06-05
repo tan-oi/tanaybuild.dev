@@ -72,17 +72,6 @@ export const projects: Project[] = [
     status: "completed",
   },
   {
-    id: "4",
-    title: "Inagiffy",
-    description:
-      "Generates personalized learning roadmaps in seconds. Built in a 5-hour sprint using the Gemini API to tailor paths based on your experience.",
-    tags: ["next", "react", "TypeScript", "tailwind", "shadcn/ui"],
-    link: "https://inagiffy-one.vercel.app/",
-    github: "https://github.com/tan-oi/inagiffy",
-    image: "https://ik.imagekit.io/wqcnxo6ayi/inagiffy.png",
-    status: "completed",
-  },
-  {
     id: "5",
     title: "Testify",
     // slug: "testify",
