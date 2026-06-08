@@ -205,6 +205,10 @@
   border-color: var(--border);
 }
 
+html {
+  background: var(--background);
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--background-gradient);
