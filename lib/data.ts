@@ -90,7 +90,7 @@ export const projects: Project[] = [
     github: "https://github.com/tan-oi/testify",
     image: "https://ik.imagekit.io/wqcnxo6ayi/testify.png",
     video: "https://www.youtube.com/watch?v=kETYUSYRjnU",
-    status: "completed",
+    status: "inactive",
   },
   {
     id: "6",
