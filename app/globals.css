@@ -38,9 +38,6 @@
     #000000 100%
   );
 
-  --font-sans: "Inter", sans-serif;
-  --font-serif: "Inter", sans-serif;
-
   --radius: 0.625rem;
 }
 
@@ -67,9 +64,6 @@
   --ring: #f56e3f;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-
-  --font-sans: "Poppins", sans-serif;
-  --font-serif: "Playfair Display", serif;
 }
 
 /* Theme: Ocean Breeze */
@@ -96,9 +90,6 @@
   --ring: #0891b2;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-
-  --font-sans: "Inter", sans-serif;
-  --font-serif: "Space Grotesk", sans-serif;
 }
 
 /* Theme: Forest Green */
@@ -125,9 +116,6 @@
   --ring: #2d8659;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-
-  --font-sans: "Karla", sans-serif;
-  --font-serif: "Merriweather", serif;
 }
 
 /* Theme: Royal Purple */
@@ -154,9 +142,6 @@
   --ring: #7c3aed;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-
-  --font-sans: "Outfit", sans-serif;
-  --font-serif: "Cormorant Garamond", serif;
 }
 
 @theme inline {
@@ -177,7 +162,10 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
 
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-lora), ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
+    monospace;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
