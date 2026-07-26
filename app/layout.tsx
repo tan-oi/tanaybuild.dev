@@ -2,9 +2,17 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Lora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import LocalTime from "@/components/local-time";
+import { Masthead } from "@/components/masthead";
+import { Footer } from "@/components/footer";
 import UmamiAnalytics from "@/components/analytics";
+
+const THEME_IDS = ["sunset", "ocean", "forest", "royal"];
+
+// Applies the saved theme before first paint so navigating/reloading with a
+// non-default theme doesn't flash the default palette.
+const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem("theme");if(t&&${JSON.stringify(
+  THEME_IDS
+)}.indexOf(t)!==-1){document.documentElement.classList.add("theme-"+t);document.body.classList.add("theme-"+t);}}catch(e){}})();`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,10 +56,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} antialiased relative`}
       >
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <ThemeProvider>
-          <ThemeSwitcher />
-          <LocalTime />
+          <Masthead />
           {children}
+          <Footer />
           <UmamiAnalytics />
         </ThemeProvider>
       </body>

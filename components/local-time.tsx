@@ -2,39 +2,33 @@
 import { useState, useEffect } from "react";
 
 export default function LocalTime() {
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  const formatKolkata = (date: Date, options: Intl.DateTimeFormatOptions) => {
-    return new Intl.DateTimeFormat("en-IN", {
-      timeZone: "Asia/Kolkata",
-      ...options,
-    }).format(date);
-  };
-
-  const formattedTime = formatKolkata(time, {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  });
+  const formattedTime = time
+    ? new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      }).format(time)
+    : "--:--:--";
 
   return (
-    <div className="fixed top-6 right-6 sm:top-10 sm:right-10 z-50">
-      <div className="bg-transparent border border-1 border-muted-foreground p-2 rounded-xl">
-        <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground font-mono">
-          <div className="flex items-center bg-none gap-2">
-            <span>{formattedTime}</span>
-            <span className="text-xs uppercase font-bold tracking-wider">
-              CCU, IN
-            </span>
-          </div>
-        </div>
-      </div>
+    <div className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
+      <span className="relative flex size-1.5" aria-hidden>
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+        <span className="relative inline-flex size-1.5 rounded-full bg-emerald-500" />
+      </span>
+      <span>{formattedTime}</span>
+      <span className="uppercase tracking-wider text-muted-foreground/70">
+        CCU, IN
+      </span>
     </div>
   );
 }
