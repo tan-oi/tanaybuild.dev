@@ -8,18 +8,14 @@ import ProjectSection from "@/components/projects/project-section";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient text-foreground selection:bg-primary selection:text-primary-foreground ">
-      <main className="max-w-2xl mx-auto px-6 py-24 font-sans">
+    <div className="min-h-screen bg-gradient text-foreground selection:bg-primary selection:text-primary-foreground">
+      <main className="max-w-[34rem] mx-auto px-6 pt-20 pb-24 sm:pt-28 font-sans">
         <Hero />
         <ExperienceSection />
         <ProjectSection />
-
         <AboutSection />
-
         <CraftSection />
       </main>
-
-    
     </div>
   );
 }
