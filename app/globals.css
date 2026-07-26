@@ -39,6 +39,9 @@
   );
 
   --radius: 0.625rem;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .theme-sunset {
@@ -225,6 +228,29 @@ h6 {
     background-attachment: fixed;
 
     background: var(--background-gradient);
+  }
+
+  /* Press feedback for interactive elements. Never ease-in - it reads as sluggish. */
+  .pressable {
+    transition: transform 150ms var(--ease-out);
+  }
+
+  .pressable:active {
+    transform: scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  .pressable:active {
+    transform: none;
   }
 }
 
