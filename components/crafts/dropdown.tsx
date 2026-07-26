@@ -25,7 +25,7 @@ export default function MotionDropdown() {
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] as any }}
+          transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] as const }}
           className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2.5 rounded-lg flex items-center gap-3 border border-slate-700 min-w-[180px] justify-between"
         >
           <motion.span
@@ -43,7 +43,7 @@ export default function MotionDropdown() {
             }}
             transition={{
               duration: 0.3,
-              ease: [0.34, 1.56, 0.64, 1] as any,
+              ease: [0.34, 1.56, 0.64, 1] as const,
             }}
           >
             <ChevronDown size={16} className="opacity-60" />
@@ -74,7 +74,7 @@ export default function MotionDropdown() {
               }}
               transition={{
                 duration: 0.25,
-                ease: [0.16, 1, 0.3, 1] as any,
+                ease: [0.16, 1, 0.3, 1] as const,
               }}
               className="absolute top-full mt-2 w-full bg-slate-800/95 backdrop-blur-xl border border-slate-700 rounded-lg overflow-hidden z-50"
             >
@@ -89,7 +89,7 @@ export default function MotionDropdown() {
                     transition={{
                       duration: 0.3,
                       delay: index * 0.04,
-                      ease: [0.16, 1, 0.3, 1] as any,
+                      ease: [0.16, 1, 0.3, 1] as const,
                     }}
                     onClick={() => {
                       setSelectedValue(option.value);
@@ -114,7 +114,7 @@ export default function MotionDropdown() {
                             exit={{ scale: 0, rotate: 180 }}
                             transition={{
                               duration: 0.3,
-                              ease: [0.34, 1.56, 0.64, 1] as any,
+                              ease: [0.34, 1.56, 0.64, 1] as const,
                             }}
                           >
                             <Check size={14} className="text-green-400" />

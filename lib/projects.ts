@@ -10,7 +10,7 @@ export interface Project {
   image?: string;
   tech?: string[];
   date?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const projectsDirectory = path.join(process.cwd(), "content/projects");

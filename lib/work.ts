@@ -7,7 +7,7 @@ export interface WorkEntry {
   title: string;
   description: string;
   content: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const workDirectory = path.join(process.cwd(), "content/work");
