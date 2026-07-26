@@ -1,27 +1,47 @@
-import { Globe, ArrowRight, Play } from "lucide-react";
-import Image from "next/image";
+import { Globe, ArrowUpRight, Play } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import Github from "../icons/github";
-import { ICON_REGISTRY } from "../icons/registry";
 import { TooltipWrapper } from "../ui/tooltip-wrapper";
+import { RowShell } from "../ui/row-shell";
+import HoverPreview from "../hover-preview";
 import { Project } from "@/lib/data";
 
-export type ProjectCardProps = Omit<Project, "id"> 
+export type ProjectCardProps = Omit<Project, "id">;
+
 const statusConfig = {
   wip: {
-    label: "Work in progress",
+    label: "In progress",
     color: "bg-emerald-400 animate-pulse",
   },
   completed: {
     label: "Completed",
-    color: "bg-blue-500",
+    color: "bg-primary/70",
   },
   inactive: {
     label: "Inactive",
-    color: "bg-slate-500",
+    color: "bg-muted-foreground/40",
   },
 };
+
+function IconLink({
+  href,
+  label,
+  icon,
+}: {
+  href: string;
+  label: string;
+  icon: React.ReactNode;
+}) {
+  return (
+    <TooltipWrapper content={label}>
+      <Link href={href} target="_blank" rel="noopener noreferrer">
+        <div className="pressable flex size-6 items-center justify-center rounded-md text-muted-foreground transition-colors duration-150 ease-[var(--ease-out)] hover:text-primary">
+          {icon}
+        </div>
+      </Link>
+    </TooltipWrapper>
+  );
+}
 
 export function ProjectCard({
   title,
@@ -35,104 +55,65 @@ export function ProjectCard({
   video,
 }: ProjectCardProps) {
   const currentStatus = statusConfig[status];
-  return (
-    <div className="group flex flex-col rounded-xl overflow-hidden bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full">
-      <div className="relative w-full aspect-video bg-muted">
-        <img src={image as string} alt={title} className="object-cover" />
-      </div>
 
-      <div className="flex flex-col p-4 gap-2 h-full">
-        <div className="flex justify-between items-start gap-4">
-          <h3 className="text-lg font-semibold tracking-tight text-foreground group-hover:text-primary transition-colors">
+  const row = (
+    <RowShell>
+      <div className="flex items-baseline justify-between gap-4">
+        <div className="flex min-w-0 items-baseline gap-2">
+          <h3 className="shrink-0 font-medium text-foreground transition-colors duration-150 ease-[var(--ease-out)] group-hover:text-primary">
             {title}
           </h3>
-
-          <div className="flex items-center gap-1 shrink-0">
-            <TooltipWrapper content="Website">
-              <Link href={link} target="_blank">
-                <Button
-                  size="icon-sm"
-                  className="text-muted-foreground hover:text-primary bg-transparent hover:bg-transparent hover:scale-110 cursor-pointer"
-                >
-                  <Globe className="size-5" />
-                </Button>
-              </Link>
-            </TooltipWrapper>
-            {github && (
-              <TooltipWrapper content="Source Code">
-                <Link href={github} target="_blank">
-                  <Button
-                    size="icon-sm"
-                    className="text-muted-foreground hover:text-primary bg-transparent hover:bg-transparent hover:scale-110 cursor-pointer"
-                  >
-                    <Github className="size-5 font-bold" />
-                  </Button>
-                </Link>
-              </TooltipWrapper>
-            )}
-
-            {video && (
-              <TooltipWrapper content="Watch a video demo">
-                <Link href={video} target="_blank">
-                  <Button
-                    size="icon-sm"
-                    className="text-muted-foreground hover:text-primary bg-transparent hover:bg-transparent hover:scale-110 cursor-pointer"
-                  >
-                    <Play className="size-5 font-bold" />
-                  </Button>
-                </Link>
-              </TooltipWrapper>
-            )}
-          </div>
+          <span className="shrink-0 text-muted-foreground/40">—</span>
+          <p className="truncate text-sm text-muted-foreground">
+            {description}
+          </p>
         </div>
-
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          {description}
-        </p>
-
-        <div className="mt-auto pt-2 flex flex-col gap-2">
-          <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground/70">
-            Technologies
+        <div className="flex shrink-0 items-center gap-1.5">
+          <div className={`size-1.5 rounded-full ${currentStatus.color}`} />
+          <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            {currentStatus.label}
           </span>
-          <div className="flex flex-wrap gap-2 items-center">
-            {tags.map((tag) => {
-              const IconComponent =
-                ICON_REGISTRY[tag as keyof typeof ICON_REGISTRY];
-              return IconComponent ? (
-                <TooltipWrapper
-                  key={tag}
-                  content={
-                    <p className="capitalize">{tag.replace("-", " ")}</p>
-                  }
-                >
-                  <div className="size-5 text-muted-foreground hover:text-primary transition-colors cursor-help">
-                    <IconComponent />
-                  </div>
-                </TooltipWrapper>
-              ) : null;
-            })}
-          </div>
+        </div>
+      </div>
+
+      <div className="mt-2.5 flex items-center gap-4">
+        <div className="flex flex-wrap gap-x-2 gap-y-1">
+          {tags.slice(0, 6).map((tag) => (
+            <span
+              key={tag}
+              className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/60"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
 
-        <div className="flex items-center justify-between pt-3 mt-2 border-t border-border/50">
-          <div className="flex items-center gap-1.5">
-            <div className={`size-2 rounded-full ${currentStatus.color}`}></div>
-            <p className="text-xs font-medium text-muted-foreground">
-              {currentStatus.label}
-            </p>
-          </div>
+        <div className="ml-auto flex shrink-0 items-center gap-0.5">
+          {github && (
+            <IconLink href={github} label="Source code" icon={<Github className="size-3.5" />} />
+          )}
+          {video && (
+            <IconLink href={video} label="Watch a demo" icon={<Play className="size-3.5" />} />
+          )}
+          <IconLink href={link} label="Website" icon={<Globe className="size-3.5" />} />
           {slug && (
             <Link
               href={`/projects/${slug}`}
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 text-xs font-medium hover:text-primary transition-colors ml-auto"
+              className="ml-1 inline-flex items-center gap-1 text-xs font-medium text-foreground/80 transition-colors duration-150 ease-[var(--ease-out)] group-hover:text-primary"
             >
-              More details
-              <ArrowRight className="size-3" />
+              Details
+              <ArrowUpRight className="size-3 -translate-x-1 opacity-0 transition-[transform,opacity] duration-200 ease-[var(--ease-out)] group-hover:translate-x-0 group-hover:opacity-100" />
             </Link>
           )}
         </div>
       </div>
-    </div>
+    </RowShell>
+  );
+
+  if (!image) return row;
+  return (
+    <HoverPreview src={image} alt={title}>
+      {row}
+    </HoverPreview>
   );
 }

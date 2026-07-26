@@ -1,51 +1,58 @@
+"use client";
+
 import { ProjectCard } from "@/components/projects/project-card";
 import { projects } from "@/lib/data";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { motion } from "motion/react";
 
 export default function ProjectsPage() {
   return (
     <div className="min-h-screen bg-gradient text-foreground selection:bg-primary selection:text-primary-foreground">
-      <main className="max-w-4xl mx-auto px-6 py-24 font-sans">
-        <div className="mb-12">
-          <Link
-            href="/"
-            className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 mb-6"
-          >
-            <ArrowLeft className="size-4" />
-            Back to home
-          </Link>
-          <h1 className="text-3xl text-primary font-semibold mb-2">
-            All Projects
-          </h1>
-          <div className="space-y-4 max-w-2xl">
-            <p className="text-muted-foreground leading-relaxed">
-              A collection of things I've built. It's wild to look back and see
-              how far I've come, though the road ahead is still long.
-            </p>
-            <p className="text-muted-foreground text-sm italic">
-              (Listed chronologically, from my latest obsessions back to my
-              earliest experiments.)
-            </p>
-          </div>
+      <main className="max-w-[34rem] mx-auto px-6 pt-20 pb-24 sm:pt-28 font-sans">
+        <Link
+          href="/"
+          className="mb-10 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-150 ease-[var(--ease-out)] hover:text-primary"
+        >
+          <ArrowLeft className="size-4" />
+          Back to home
+        </Link>
+
+        <div className="mb-10">
+          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+            All projects
+          </span>
+          <p className="mt-3 max-w-[32ch] text-sm leading-relaxed text-muted-foreground">
+            Listed from my latest obsessions back to my earliest experiments.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {projects.map((item) => (
-            <ProjectCard
+        <ul className="flex flex-col">
+          {projects.map((item, i) => (
+            <motion.li
               key={item.id}
-              title={item.title}
-              description={item.description}
-              tags={item.tags}
-              link={item.link}
-              status={item.status}
-              github={item.github}
-              image={item.image}
-              slug={item.slug}
-              video={item.video}
-            />
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.4,
+                delay: i * 0.04,
+                ease: [0.23, 1, 0.32, 1],
+              }}
+            >
+              <ProjectCard
+                title={item.title}
+                description={item.description}
+                tags={item.tags}
+                link={item.link}
+                status={item.status}
+                github={item.github}
+                image={item.image}
+                slug={item.slug}
+                video={item.video}
+              />
+            </motion.li>
           ))}
-        </div>
+        </ul>
       </main>
     </div>
   );
