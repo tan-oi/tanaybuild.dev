@@ -38,8 +38,10 @@ function ExperienceRow({ item }: { item: Experience }) {
               <span className="relative inline-flex size-1.5 rounded-full bg-emerald-500" />
             </span>
           )}
-          <span className="shrink-0 text-muted-foreground/40">—</span>
-          <p className="truncate text-sm text-muted-foreground">
+          <span className="hidden shrink-0 text-muted-foreground/40 sm:inline">
+            —
+          </span>
+          <p className="hidden min-w-0 flex-1 truncate text-sm text-muted-foreground sm:block">
             {item.description}
           </p>
         </div>
@@ -47,6 +49,9 @@ function ExperienceRow({ item }: { item: Experience }) {
           {item.start} – {item.end}
         </span>
       </div>
+      <p className="mt-1 text-sm text-muted-foreground sm:hidden">
+        {item.description}
+      </p>
 
       {item.note && (
         <p className="mt-2 text-sm italic text-foreground/70">
@@ -55,7 +60,7 @@ function ExperienceRow({ item }: { item: Experience }) {
         </p>
       )}
 
-      <div className="mt-2.5 flex items-center gap-4">
+      <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-2">
         {item.tags && item.tags.length > 0 && (
           <div className="flex flex-wrap gap-x-2 gap-y-1">
             {item.tags.map((tag) => (

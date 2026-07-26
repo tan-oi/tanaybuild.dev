@@ -64,7 +64,7 @@ export function ProjectCard({
             {title}
           </h3>
           <span className="shrink-0 text-muted-foreground/40">—</span>
-          <p className="truncate text-sm text-muted-foreground">
+          <p className="min-w-0 flex-1 truncate text-sm text-muted-foreground">
             {description}
           </p>
         </div>
@@ -76,7 +76,7 @@ export function ProjectCard({
         </div>
       </div>
 
-      <div className="mt-2.5 flex items-center gap-4">
+      <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-2">
         <div className="flex flex-wrap gap-x-2 gap-y-1">
           {tags.slice(0, 6).map((tag) => (
             <span
