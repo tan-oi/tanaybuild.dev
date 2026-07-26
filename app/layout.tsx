@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Masthead } from "@/components/masthead";
 import { Footer } from "@/components/footer";
+import { CommandPalette } from "@/components/command-palette";
 import UmamiAnalytics from "@/components/analytics";
 
 const THEME_IDS = ["sunset", "ocean", "forest", "royal"];
@@ -61,6 +62,7 @@ export default function RootLayout({
           <Masthead />
           {children}
           <Footer />
+          <CommandPalette />
           <UmamiAnalytics />
         </ThemeProvider>
       </body>
