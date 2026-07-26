@@ -16,7 +16,6 @@ import {
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Github from "@/components/icons/github";
-import { ICON_REGISTRY } from "@/components/icons/registry";
 import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
 
 export async function generateStaticParams() {
@@ -35,9 +34,9 @@ const components = {
 };
 
 const statusConfig = {
-  wip: { label: "Work in progress", color: "bg-emerald-400 animate-pulse" },
-  completed: { label: "Completed", color: "bg-blue-500" },
-  inactive: { label: "Inactive", color: "bg-slate-500" },
+  wip: { label: "In progress", color: "bg-emerald-400 animate-pulse" },
+  completed: { label: "Completed", color: "bg-primary/70" },
+  inactive: { label: "Inactive", color: "bg-muted-foreground/40" },
 } as const;
 
 export default async function ProjectPage({
@@ -60,10 +59,10 @@ export default async function ProjectPage({
 
   return (
     <div className="bg-gradient min-h-screen">
-      <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="max-w-2xl mx-auto px-6 pt-16 pb-24 sm:pt-20">
         <Link
           href="/projects"
-          className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 mb-8"
+          className="mb-10 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-150 ease-[var(--ease-out)] hover:text-primary"
         >
           <ArrowLeft className="size-4" />
           Back to projects
@@ -81,15 +80,19 @@ export default async function ProjectPage({
             </div>
           )}
 
-          <div className="flex items-start justify-between gap-4 flex-wrap">
+          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+            Project
+          </span>
+
+          <div className="flex items-start justify-between gap-4 flex-wrap mt-2">
             <div className="min-w-0">
               <h1 className="text-3xl sm:text-4xl font-semibold text-primary tracking-tight">
                 {project.title}
               </h1>
               {status && (
                 <div className="flex items-center gap-1.5 mt-2">
-                  <div className={`size-2 rounded-full ${status.color}`}></div>
-                  <p className="text-xs font-medium text-muted-foreground">
+                  <div className={`size-1.5 rounded-full ${status.color}`}></div>
+                  <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
                     {status.label}
                   </p>
                 </div>
@@ -100,7 +103,7 @@ export default async function ProjectPage({
               {meta?.link && (
                 <TooltipWrapper content="Website">
                   <Link href={meta.link} target="_blank">
-                    <button className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-muted transition-colors cursor-pointer">
+                    <button className="pressable p-2 rounded-lg text-muted-foreground transition-colors duration-150 ease-[var(--ease-out)] hover:text-primary hover:bg-muted cursor-pointer">
                       <Globe className="size-5" />
                     </button>
                   </Link>
@@ -109,7 +112,7 @@ export default async function ProjectPage({
               {meta?.github && (
                 <TooltipWrapper content="Source Code">
                   <Link href={meta.github} target="_blank">
-                    <button className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-muted transition-colors cursor-pointer">
+                    <button className="pressable p-2 rounded-lg text-muted-foreground transition-colors duration-150 ease-[var(--ease-out)] hover:text-primary hover:bg-muted cursor-pointer">
                       <Github className="size-5" />
                     </button>
                   </Link>
@@ -118,7 +121,7 @@ export default async function ProjectPage({
               {meta?.video && (
                 <TooltipWrapper content="Watch a video demo">
                   <Link href={meta.video} target="_blank">
-                    <button className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-muted transition-colors cursor-pointer">
+                    <button className="pressable p-2 rounded-lg text-muted-foreground transition-colors duration-150 ease-[var(--ease-out)] hover:text-primary hover:bg-muted cursor-pointer">
                       <Play className="size-5" />
                     </button>
                   </Link>
@@ -132,35 +135,15 @@ export default async function ProjectPage({
           </p>
 
           {meta?.tags && meta.tags.length > 0 && (
-            <div className="mt-6 flex flex-col gap-2">
-              <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground/70">
-                Technologies
-              </span>
-              <div className="flex flex-wrap gap-2 items-center">
-                {meta.tags.map((tag) => {
-                  const Icon =
-                    ICON_REGISTRY[tag as keyof typeof ICON_REGISTRY];
-                  return Icon ? (
-                    <TooltipWrapper
-                      key={tag}
-                      content={
-                        <p className="capitalize">{tag.replace("-", " ")}</p>
-                      }
-                    >
-                      <div className="size-5 text-muted-foreground hover:text-primary transition-colors cursor-help">
-                        <Icon />
-                      </div>
-                    </TooltipWrapper>
-                  ) : (
-                    <span
-                      key={tag}
-                      className="text-xs px-2 py-0.5 rounded-md bg-muted text-muted-foreground border border-border/50"
-                    >
-                      {tag}
-                    </span>
-                  );
-                })}
-              </div>
+            <div className="mt-6 flex flex-wrap gap-x-3 gap-y-1.5">
+              {meta.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/60"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
           )}
         </header>

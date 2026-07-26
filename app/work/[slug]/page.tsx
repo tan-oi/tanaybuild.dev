@@ -22,22 +22,25 @@ export default async function WorkPage({
 
   return (
     <div className="bg-gradient min-h-screen">
-      <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="max-w-2xl mx-auto px-6 pt-16 pb-24 sm:pt-20">
         <Link
           href="/"
-          className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 mb-8"
+          className="mb-10 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-150 ease-[var(--ease-out)] hover:text-primary"
         >
           <ArrowLeft className="size-4" />
           Back home
         </Link>
 
         <header className="mb-10 pb-8 border-b border-border/50">
-          <h1 className="text-3xl sm:text-4xl font-semibold text-primary tracking-tight">
+          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+            Work
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-semibold text-primary tracking-tight mt-2">
             {work.title}
           </h1>
           {meta && (
-            <p className="text-sm text-muted-foreground font-mono mt-2">
-              {meta.role} · {meta.start} — {meta.end}
+            <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground mt-2">
+              {meta.role} · {meta.start} – {meta.end}
             </p>
           )}
           <p className="text-muted-foreground leading-relaxed mt-4 max-w-2xl">
@@ -49,10 +52,10 @@ export default async function WorkPage({
               href={meta.companyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-sm text-foreground hover:text-primary transition-colors mt-5"
+              className="group inline-flex items-center gap-1 text-sm text-foreground transition-colors duration-150 ease-[var(--ease-out)] hover:text-primary mt-5"
             >
               Visit {meta.company}
-              <ArrowUpRight className="size-3.5" />
+              <ArrowUpRight className="size-3.5 transition-transform duration-150 ease-[var(--ease-out)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           )}
         </header>
