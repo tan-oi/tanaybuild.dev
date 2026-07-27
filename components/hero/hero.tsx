@@ -1,90 +1,57 @@
-import { Mail, ArrowUpRight } from "lucide-react";
+import { ThemeSwitcher } from "../theme-switcher";
+import { MarkerLinks, type MarkerLink } from "./marker-links";
 
-import { TooltipWrapper } from "../ui/tooltip-wrapper";
-import { contactTags, experiences } from "@/lib/data";
-import { ICON_REGISTRY } from "../icons/registry";
-import Link from "next/link";
-import CTA from "../cta";
+/** Bump this by hand when the page content actually changes. */
+const LAST_UPDATED = "July 2026";
+
+const links: MarkerLink[] = [
+  { label: "Résumé", href: "/resume.pdf" },
+  { label: "Email", href: "mailto:tan.dev.x@gmail.com" },
+  { label: "GitHub", href: "https://github.com/tan-oi" },
+  { label: "X", href: "https://x.com/tan0i_" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/tanay-ghoriwala" },
+];
 
 export function Hero() {
-  const hasCurrentRole = experiences.some(
-    (e) => e.end.toLowerCase() === "present"
-  );
-  const isOpenToWork = experiences.length > 0 && !hasCurrentRole;
-
   return (
-    <section className="mb-24 flex flex-col items-start gap-6">
-      <div className="space-y-2">
-        {isOpenToWork && (
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 mb-1">
-            <span className="relative flex size-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75" />
-              <span className="relative inline-flex size-1.5 rounded-full bg-sky-500" />
-            </span>
-            <span className="text-[10px] uppercase tracking-[0.15em] text-sky-400 font-mono font-medium">
-              Open to work
+    <>
+      <div className="mb-10">
+        <header className="rise mb-10 flex items-start justify-between gap-4 [animation-delay:.04s]">
+          <div>
+            <h2 className="text-[19px] leading-tight font-medium tracking-[-0.02em]">
+              Tanay Ghoriwala
+            </h2>
+            <span className="mt-1.5 block font-mono text-[11px] tracking-[0.05em] text-subtle">
+              Updated {LAST_UPDATED}
             </span>
           </div>
-        )}
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          Hey there,
-        </p>
-        <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-primary">
-          I&apos;m Tanay
+          <div className="pt-2">
+            <ThemeSwitcher />
+          </div>
+        </header>
+
+        <h1 className="rise mb-4 text-[14px] leading-[1.7] font-normal [animation-delay:.12s]">
+          I&apos;m a software developer based in India, i like building and
+          playing around with stupid things on my ide/cc on some very
+          questionable hours
         </h1>
-        <p className="text-muted-foreground leading-relaxed max-w-md pt-2">
-          I write code with a sprinkle of chaos and a lot of caffeine. Focused
-          on making things cool, fun to use, and i learn things by messing
-          around on the internet haha.
+
+        <p className="rise text-[14px] mb-4 text-muted-foreground text-pretty [animation-delay:.2s]">
+          I like reverse-engineering things. Spent days in{" "}
+          <a
+            className="link-retract text-foreground"
+            href="https://chroniclehq.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Chronicle
+          </a>
+          &apos;s network tab working out how it works, got obsessed, built my
+          own mini version, and eventually got the opportunity to work there.
         </p>
+
+        <MarkerLinks links={links} />
       </div>
-
-      <div className="flex flex-col gap-6">
-        <div className="flex gap-2">
-          <Link href={`/contact`}>
-            <button className="py-2 px-4 text-sm bg-secondary text-secondary-foreground rounded-xl flex gap-2 items-center hover:bg-secondary/80 transition-all group w-fit">
-              <span>Get in touch</span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </button>
-          </Link>
-
-          <CTA />
-        </div>
-
-        <div className="flex gap-3 items-center">
-          {contactTags.map((item, i) => {
-            const IconComponent =
-              ICON_REGISTRY[item.iconTag as keyof typeof ICON_REGISTRY];
-
-            return IconComponent ? (
-              <TooltipWrapper
-                key={i}
-                content={
-                  <p className="capitalize">{item.iconTag.replace("-", " ")}</p>
-                }
-              >
-                <Link
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div className="size-5 text-muted-foreground hover:text-primary transition-colors">
-                    <IconComponent />
-                  </div>
-                </Link>
-              </TooltipWrapper>
-            ) : null;
-          })}
-
-          <TooltipWrapper content="Email">
-            <Link href={`mailto:tan.dev.x@gmail.com`}>
-              <div className="text-muted-foreground hover:text-primary transition-colors">
-                <Mail />
-              </div>
-            </Link>
-          </TooltipWrapper>
-        </div>
-      </div>
-    </section>
+    </>
   );
 }

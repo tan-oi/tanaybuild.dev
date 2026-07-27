@@ -1,24 +1,29 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 import LocalTime from "@/components/local-time";
 import UmamiAnalytics from "@/components/analytics";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
+
+export const viewport: Viewport = {
+  themeColor: "#0C0C0D",
+};
 
 export const metadata: Metadata = {
-  title: "Tanay - A fullstack dev",
-  description: "",
+  title: "Tanay Ghoriwala",
+  description: "Software engineer.",
   // icons: {
   //   icon: "/app/favicon.ico",
   // },
@@ -37,12 +42,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
-      >
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
+    >
+      <body className="antialiased relative">
         <ThemeProvider>
-          <ThemeSwitcher />
           <LocalTime />
           {children}
           <UmamiAnalytics />

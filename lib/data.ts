@@ -136,18 +136,3 @@ export const experiences: Experience[] = [
     image: "/chronicle.png",
   },
 ];
-
-export const contactTags = [
-  {
-    iconTag: "LinkedIn",
-    href: "https://www.linkedin.com/in/tanay-ghoriwala",
-  },
-  {
-    iconTag: "Github",
-    href: "https://github.com/tan-oi",
-  },
-  {
-    iconTag: "x",
-    href: "https://x.com/tan0i_",
-  },
-];
