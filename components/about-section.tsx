@@ -1,6 +1,6 @@
 export default function AboutSection() {
   return (
-    <section className="mb-24">
+    <section className="mb-20">
       <div className="mb-8">
         <h2 className="text-2xl text-primary font-semibold">About me</h2>
       </div>

@@ -9,13 +9,33 @@ export interface Project {
   status: "completed" | "wip" | "inactive";
   slug?: string;
   video?: string;
+  /** One line on what it actually does — the ↳ line under the title. */
+  tagline?: string;
 }
+
+/** Tags double as ICON_REGISTRY keys, so they can't be renamed. This maps the
+ *  key to how the name is actually written. */
+const TAG_LABELS: Record<string, string> = {
+  next: "Next.js",
+  react: "React",
+  tailwind: "Tailwind",
+  motion: "Motion",
+  prisma: "Prisma",
+  shadcn: "shadcn/ui",
+  "Better-auth": "Better Auth",
+  "React-query": "React Query",
+  Mongodb: "MongoDB",
+};
+
+export const formatTags = (tags: string[]) =>
+  tags.map((t) => TAG_LABELS[t] ?? t).join(", ");
 
 export const projects: Project[] = [
   {
     id: "1",
     title: "Glyph",
     slug: "ppt",
+    tagline: "prompt to deck in four steps",
     description:
       "An AI-powered presentation tool with a rich library of layouts and widgets. Create stunning, shareable slide decks in seconds using generative AI.",
     tags: [
@@ -38,6 +58,7 @@ export const projects: Project[] = [
     id: "2",
     title: "Flowdocs",
     slug: "flowdocs",
+    tagline: "an editor that assists as you type",
     description:
       "A minimal, intelligent writing interface built on Tiptap. Features a reactive editor that adapts and assists as you type.",
     tags: [
@@ -69,6 +90,7 @@ export const projects: Project[] = [
     image: "https://ik.imagekit.io/wqcnxo6ayi/tracker.png",
     video: "https://youtu.be/QWej_nhIF-c",
     slug: "tracker",
+    tagline: "every contest across every judge, in one place",
     status: "completed",
   },
   {
@@ -129,9 +151,9 @@ export const experiences: Experience[] = [
     start: "Jan 2026",
     end: "Jun 2026",
     description:
-      "Worked across multiple streams. Owned and handled the exports service in close collaboration with the pod lead.",
+      "Owned the exports system. Built a raster PDF export for pixel-perfect output, rebuilt the old vector one, and added an image-optimization layer underneath it.",
     note: "first experience, had v fun working with the best team :)",
-    tags: ["TypeScript", "React"],
+    tags: ["TypeScript", "React", "next"],
     slug: "chronicle",
     image: "/chronicle.png",
   },

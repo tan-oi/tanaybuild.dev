@@ -1,13 +1,14 @@
 export type Theme = {
   id: string;
   name: string;
-  /** Dot colour in the switcher — the theme's background, except Oxide/Tide
-   *  pool/Paper where the accent reads better at 11px. */
+  /** Fills the theme's chip in the switcher. Whichever colour identifies the
+   *  theme fastest: the accent for the two chromatic ones, grey for Graphite,
+   *  and Paper's cream ground — the only light theme, so it reads as such. */
   dot: string;
 };
 
 export const themes: Theme[] = [
-  { id: "graphite", name: "Graphite", dot: "#0C0C0D" },
+  { id: "graphite", name: "Graphite", dot: "#4A4A46" },
   { id: "oxide", name: "Oxide", dot: "#C97B4E" },
   { id: "tidepool", name: "Tide pool", dot: "#5FA88E" },
   { id: "paper", name: "Paper", dot: "#F2F1EE" },

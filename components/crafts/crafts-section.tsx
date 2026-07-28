@@ -5,7 +5,7 @@ import Pricing from "./pricing";
 export default function CraftSection() {
   return (
     <>
-      <section className="mb-24">
+      <section className="mb-20">
         <div className="mb-8">
           <h2 className="text-sm text-muted-foreground font-semibold">Featured</h2>
           <p className="text-2xl text-muted-foreground">smol ui crafts</p>

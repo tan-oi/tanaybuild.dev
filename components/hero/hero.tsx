@@ -15,13 +15,13 @@ const links: MarkerLink[] = [
 export function Hero() {
   return (
     <>
-      <div className="mb-10">
+      <div className="mb-20">
         <header className="rise mb-10 flex items-start justify-between gap-4 [animation-delay:.04s]">
           <div>
             <h2 className="text-[19px] leading-tight font-medium tracking-[-0.02em]">
               Tanay Ghoriwala
             </h2>
-            <span className="mt-1.5 block font-mono text-[11px] tracking-[0.05em] text-subtle">
+            <span className="mt-1.5 block font-mono text-[12px] tracking-[0.05em] text-subtle">
               Updated {LAST_UPDATED}
             </span>
           </div>
@@ -30,13 +30,13 @@ export function Hero() {
           </div>
         </header>
 
-        <h1 className="rise mb-4 text-[14px] leading-[1.7] font-normal [animation-delay:.12s]">
+        <h1 className="rise mb-4 text-[15px] leading-[1.7] font-normal [animation-delay:.12s]">
           I&apos;m a software developer based in India, i like building and
           playing around with stupid things on my ide/cc on some very
           questionable hours
         </h1>
 
-        <p className="rise text-[14px] mb-4 text-muted-foreground text-pretty [animation-delay:.2s]">
+        <p className="rise text-[15px] mb-4 text-muted-foreground text-pretty [animation-delay:.2s]">
           I like reverse-engineering things. Spent days in{" "}
           <a
             className="link-retract text-foreground"

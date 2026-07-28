@@ -115,7 +115,8 @@
   --color-destructive-foreground: var(--destructive-foreground);
 
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular,
+    monospace;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -154,7 +155,7 @@ body {
   color: var(--foreground);
   font-size: 15px;
   line-height: 1.75;
-  letter-spacing: -0.011em;
+  letter-spacing: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
@@ -265,12 +266,16 @@ body::before {
   transform: rotate(-0.7deg) scaleX(1);
 }
 
+/* Reduced motion means a gentler equivalent, not the absence of feedback:
+   positional motion is dropped, colour and opacity still respond. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation: none !important;
-    transition: none !important;
+    transition-property: opacity, color, background-color, border-color,
+      text-decoration-color !important;
+    transition-duration: 150ms !important;
   }
   html {
     scroll-behavior: auto;
@@ -278,6 +283,20 @@ body::before {
   .rise {
     opacity: 1;
     transform: none;
+  }
+  .marker::before {
+    transform: rotate(-0.7deg) scaleX(1);
+    opacity: 0;
+  }
+  .marker:hover::before,
+  .marker:focus-visible::before {
+    opacity: 0.38;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  body::before {
+    display: none;
   }
 }
 
