@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { experiences, type Experience } from "@/lib/data";
+import { experiences, formatTags, type Experience } from "@/lib/data";
 import HoverPreview from "./hover-preview";
 
 function MaybePreview({
@@ -18,134 +17,92 @@ function MaybePreview({
   );
 }
 
-export default function ExperienceSection() {
-  const current = experiences.find((e) => e.end.toLowerCase() === "present");
-  const past = experiences.filter((e) => e.end.toLowerCase() !== "present");
+function Slab({ item }: { item: Experience }) {
+  const isCurrent = item.end.toLowerCase() === "present";
 
   return (
-    <section className="mb-24">
-      <div className="mb-8">
-        <span className="text-sm text-muted-foreground">Where I&apos;ve been</span>
-        <h2 className="text-2xl text-primary font-semibold">Experience</h2>
+    <div className="border-b border-border pb-6 last:border-b-0 last:pb-0">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <MaybePreview item={item}>
+          {item.companyUrl ? (
+            <a
+              href={item.companyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[19px] leading-tight font-medium tracking-[-0.02em] underline decoration-transparent underline-offset-[6px] transition-[text-decoration-color] duration-200 ease-out hover:decoration-border-strong"
+            >
+              {item.company}
+            </a>
+          ) : (
+            <span className="text-[19px] leading-tight font-medium tracking-[-0.02em]">
+              {item.company}
+            </span>
+          )}
+        </MaybePreview>
+
+        {/* Role rides with the dates as one microtype line, so the company
+            owns the top line alone. */}
+        <span className="flex shrink-0 items-center gap-2 font-mono text-[12px] tracking-[0.05em] text-subtle">
+          {isCurrent && (
+            <span className="size-[5px] animate-pulse rounded-full bg-accent" />
+          )}
+          {item.role} · {item.start} — {item.end}
+        </span>
       </div>
 
-      {current && (
-        <div className="relative">
-          <MaybePreview item={current}>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.18em] text-emerald-500 font-mono font-medium">
-                Currently
-              </span>
-              <span className="text-[11px] uppercase tracking-wider text-muted-foreground font-mono ml-auto">
-                {current.start} — {current.end}
-              </span>
-            </div>
+      <p className="mt-3 max-w-[30rem] text-[15px] text-muted-foreground text-pretty">
+        {item.description}
+      </p>
 
-            <div className="flex items-baseline gap-2 flex-wrap">
-              <h3 className="text-xl font-semibold text-foreground">
-                {current.role}
-              </h3>
-              <span className="text-muted-foreground/60">at</span>
-              {current.companyUrl ? (
-                <Link
-                  href={current.companyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xl font-semibold text-primary inline-flex items-center gap-0.5 hover:underline underline-offset-4 decoration-primary/40"
-                >
-                  {current.company}
-                  <ArrowUpRight className="size-4" />
-                </Link>
-              ) : (
-                <span className="text-xl font-semibold text-primary">
-                  {current.company}
-                </span>
-              )}
-            </div>
-          </MaybePreview>
-
-          <p className="text-muted-foreground leading-relaxed mt-3 max-w-xl">
-            {current.description}
-          </p>
-
-          {current.note && (
-            <p className="text-sm italic text-foreground/70 mt-2 max-w-xl">
-              <span className="text-muted-foreground/60 mr-1.5">—</span>
-              {current.note}
-            </p>
-          )}
-
-          {current.slug && (
-            <Link
-              href={`/work/${current.slug}`}
-              className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors mt-4 group hover:underline underline-offset-4 decoration-primary/40"
-            >
-              What I&apos;m actually working on
-              <ArrowUpRight className="size-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </Link>
-          )}
-        </div>
+      {item.note && (
+        <p className="mt-1.5 max-w-[30rem] text-[15px] text-subtle italic">
+          {item.note}
+        </p>
       )}
 
-      {past.length > 0 && (
-        <ol className={`${current ? "mt-10 pt-8 border-t border-border/50" : ""} space-y-6`}>
-          {past.map((item) => (
-            <li key={item.id}>
-              <MaybePreview item={item}>
-                <div className="flex items-baseline justify-between gap-4 flex-wrap">
-                  <div className="flex items-baseline gap-2 flex-wrap min-w-0">
-                    <h3 className="text-lg font-semibold text-foreground">
-                      {item.role}
-                    </h3>
-                    <span className="text-muted-foreground/60">at</span>
-                    {item.companyUrl ? (
-                      <Link
-                        href={item.companyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-lg font-semibold text-primary inline-flex items-center gap-0.5 hover:underline underline-offset-4 decoration-primary/40"
-                      >
-                        {item.company}
-                        <ArrowUpRight className="size-4" />
-                      </Link>
-                    ) : (
-                      <span className="text-lg font-semibold text-primary">
-                        {item.company}
-                      </span>
-                    )}
-                  </div>
-                  <span className="text-[11px] uppercase tracking-wider text-muted-foreground font-mono shrink-0">
-                    {item.start} — {item.end}
-                  </span>
-                </div>
-              </MaybePreview>
-
-              <p className="text-sm text-muted-foreground leading-relaxed mt-2">
-                {item.description}
-              </p>
-              {item.note && (
-                <p className="text-sm italic text-foreground/70 mt-2 max-w-xl">
-                  <span className="text-muted-foreground/60 mr-1.5">—</span>
-                  {item.note}
-                </p>
-              )}
-              {item.slug && (
-                <Link
-                  href={`/work/${item.slug}`}
-                  className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors mt-4 group/link hover:underline underline-offset-4 decoration-primary/40"
-                >
-                  What I actually worked on
-                  <ArrowUpRight className="size-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                </Link>
-              )}
-            </li>
-          ))}
-        </ol>
+      {item.tags && item.tags.length > 0 && (
+        <p className="mt-3 font-mono text-[12px] tracking-[0.03em] text-muted-foreground">
+          {formatTags(item.tags)}
+        </p>
       )}
+
+      {item.slug && (
+        <Link
+          href={`/work/${item.slug}`}
+          className="link-retract mt-3 inline-block text-[15px] text-accent"
+        >
+          {isCurrent ? "What I'm actually working on" : "What I actually worked on"}
+        </Link>
+      )}
+    </div>
+  );
+}
+
+export default function ExperienceSection() {
+  if (experiences.length === 0) return null;
+
+  return (
+    <section
+      aria-labelledby="experience"
+      className="rise mb-20 [animation-delay:.46s]"
+    >
+      {/* Label and rule read as one unit, so the section is separated by a
+          single hairline rather than a floating word above a box. */}
+      <div className="mb-4 flex items-center gap-3">
+        <span
+          id="experience"
+          className="shrink-0 font-mono text-[12px] tracking-[0.05em] text-accent"
+        >
+          Experience
+        </span>
+        <span className="h-px flex-1 bg-border" />
+      </div>
+
+      <div className="flex flex-col gap-9">
+        {experiences.map((item) => (
+          <Slab key={item.id} item={item} />
+        ))}
+      </div>
     </section>
   );
 }
