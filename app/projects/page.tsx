@@ -30,10 +30,12 @@ export default function ProjectsPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {projects.map((item) => (
+        <ol className="flex flex-col gap-6">
+          {projects.map((item, i) => (
             <ProjectCard
               key={item.id}
+              index={i}
+              tagline={item.tagline}
               title={item.title}
               description={item.description}
               tags={item.tags}
@@ -45,7 +47,7 @@ export default function ProjectsPage() {
               video={item.video}
             />
           ))}
-        </div>
+        </ol>
       </main>
     </div>
   );

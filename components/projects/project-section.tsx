@@ -1,42 +1,49 @@
 import { projects } from "@/lib/data";
 import { ProjectCard } from "./project-card";
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function ProjectSection() {
-  return (
-    <>
-      <section className="mb-24">
-        <div className="flex items-end justify-between mb-8">
-          <div>
-            <span className="text-sm text-muted-foreground">Featured</span>
-            <h2 className="text-2xl text-primary font-semibold">Projects</h2>
-          </div>
-          <Link
-            href="/projects"
-            className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 hover:underline"
-          >
-            View all <ArrowRight className="size-4" />
-          </Link>
-        </div>
+  const featured = projects.filter((p) => p.status !== "inactive").slice(0, 2);
+  if (featured.length === 0) return null;
 
-        <div className="grid gap-8">
-          {projects.slice(0, 2).map((item, i) => (
-            <ProjectCard
-              key={item.id}
-              title={item.title}
-              description={item.description}
-              tags={item.tags}
-              link={item.link}
-              status={item.status}
-              github={item.github}
-              image={item.image}
-              slug={item.slug}
-               video={item.video}
-            />
-          ))}
-        </div>
-      </section>
-    </>
+  return (
+    <section aria-labelledby="projects" className="mb-20">
+      {/* Same label-and-rule header as Experience; "View all" sits at the end
+          of the rule rather than as a second competing heading. */}
+      <div className="mb-4 flex items-center gap-3">
+        <span
+          id="projects"
+          className="shrink-0 font-mono text-[12px] tracking-[0.05em] text-accent"
+        >
+          Projects
+        </span>
+        <span className="h-px flex-1 bg-border" />
+        <Link
+          href="/projects"
+          className="shrink-0 font-mono text-[12px] tracking-[0.05em] text-subtle transition-colors duration-300 hover:text-foreground"
+        >
+          View all
+        </Link>
+      </div>
+
+      <ol className="flex flex-col gap-6">
+        {featured.map((item, i) => (
+          <ProjectCard
+            key={item.id}
+            index={i}
+            title={item.title}
+            description={item.description}
+            tagline={item.tagline}
+            tags={item.tags}
+            link={item.link}
+            status={item.status}
+            github={item.github}
+            image={item.image}
+            slug={item.slug}
+            video={item.video}
+          />
+        ))}
+      </ol>
+    </section>
   );
 }

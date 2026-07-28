@@ -1,138 +1,120 @@
-import { Globe, ArrowRight, Play } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../ui/button";
-import Github from "../icons/github";
-import { ICON_REGISTRY } from "../icons/registry";
-import { TooltipWrapper } from "../ui/tooltip-wrapper";
-import { Project } from "@/lib/data";
+import HoverPreview from "../hover-preview";
+import { formatTags, Project } from "@/lib/data";
 
-export type ProjectCardProps = Omit<Project, "id"> 
-const statusConfig = {
-  wip: {
-    label: "Work in progress",
-    color: "bg-emerald-400 animate-pulse",
-  },
-  completed: {
-    label: "Completed",
-    color: "bg-blue-500",
-  },
-  inactive: {
-    label: "Inactive",
-    color: "bg-slate-500",
-  },
-};
+export type ProjectCardProps = Omit<Project, "id"> & { index: number };
 
 export function ProjectCard({
   title,
   description,
+  tagline,
   tags,
-  link = "#",
+  link,
   status = "completed",
   github,
   image,
   slug,
   video,
+  index,
 }: ProjectCardProps) {
-  const currentStatus = statusConfig[status];
+  // "Completed" is the default state of everything here, so saying so is noise.
+  // Only the states that change how you read the project get called out.
+  const flag =
+    status === "wip" ? "In progress" : status === "inactive" ? "Inactive" : null;
+
+  const href = slug ? `/projects/${slug}` : link;
+  const meta = flag;
+
+  const titleNode = href ? (
+    <Link
+      href={href}
+      className="text-[19px] leading-tight font-medium tracking-[-0.02em] underline decoration-transparent underline-offset-[6px] transition-[text-decoration-color] duration-200 ease-out group-hover:decoration-border-strong"
+    >
+      {title}
+    </Link>
+  ) : (
+    <span className="text-[19px] leading-tight font-medium tracking-[-0.02em]">
+      {title}
+    </span>
+  );
+
   return (
-    <div className="group flex flex-col rounded-xl overflow-hidden bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full">
-      <div className="relative w-full aspect-video bg-muted">
-        <img src={image as string} alt={title} className="object-cover" />
-      </div>
+    // Numbered because the list IS ordered — most recent work first.
+    <li className="group grid grid-cols-[2rem_1fr] gap-x-1 border-b border-border pb-6 last:border-b-0 last:pb-0">
+      <span className="pt-1 font-mono text-[12px] tracking-[0.05em] text-subtle tabular-nums">
+        {String(index + 1).padStart(2, "0")}
+      </span>
 
-      <div className="flex flex-col p-4 gap-2 h-full">
-        <div className="flex justify-between items-start gap-4">
-          <h3 className="text-lg font-semibold tracking-tight text-foreground group-hover:text-primary transition-colors">
-            {title}
-          </h3>
+      <div className="min-w-0">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          {/* The screenshot lives on hover rather than taking permanent space. */}
+          {image ? (
+            <HoverPreview src={image} alt={title}>
+              {titleNode}
+            </HoverPreview>
+          ) : (
+            titleNode
+          )}
 
-          <div className="flex items-center gap-1 shrink-0">
-            <TooltipWrapper content="Website">
-              <Link href={link} target="_blank">
-                <Button
-                  size="icon-sm"
-                  className="text-muted-foreground hover:text-primary bg-transparent hover:bg-transparent hover:scale-110 cursor-pointer"
-                >
-                  <Globe className="size-5" />
-                </Button>
-              </Link>
-            </TooltipWrapper>
-            {github && (
-              <TooltipWrapper content="Source Code">
-                <Link href={github} target="_blank">
-                  <Button
-                    size="icon-sm"
-                    className="text-muted-foreground hover:text-primary bg-transparent hover:bg-transparent hover:scale-110 cursor-pointer"
-                  >
-                    <Github className="size-5 font-bold" />
-                  </Button>
-                </Link>
-              </TooltipWrapper>
-            )}
-
-            {video && (
-              <TooltipWrapper content="Watch a video demo">
-                <Link href={video} target="_blank">
-                  <Button
-                    size="icon-sm"
-                    className="text-muted-foreground hover:text-primary bg-transparent hover:bg-transparent hover:scale-110 cursor-pointer"
-                  >
-                    <Play className="size-5 font-bold" />
-                  </Button>
-                </Link>
-              </TooltipWrapper>
-            )}
-          </div>
+          {meta && (
+            <span className="flex shrink-0 items-center gap-2 font-mono text-[12px] tracking-[0.05em] text-subtle">
+              {status === "wip" && (
+                <span className="size-[5px] animate-pulse rounded-full bg-accent" />
+              )}
+              {meta}
+            </span>
+          )}
         </div>
 
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        {tagline && (
+          <p className="mt-1 flex gap-1.5 text-[15px] text-foreground">
+            <span aria-hidden className="text-subtle">
+              ↳
+            </span>
+            {tagline}
+          </p>
+        )}
+
+        <p className="mt-2 max-w-[30rem] text-[15px] text-muted-foreground text-pretty">
           {description}
         </p>
 
-        <div className="mt-auto pt-2 flex flex-col gap-2">
-          <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground/70">
-            Technologies
-          </span>
-          <div className="flex flex-wrap gap-2 items-center">
-            {tags.map((tag) => {
-              const IconComponent =
-                ICON_REGISTRY[tag as keyof typeof ICON_REGISTRY];
-              return IconComponent ? (
-                <TooltipWrapper
-                  key={tag}
-                  content={
-                    <p className="capitalize">{tag.replace("-", " ")}</p>
-                  }
-                >
-                  <div className="size-5 text-muted-foreground hover:text-primary transition-colors cursor-help">
-                    <IconComponent />
-                  </div>
-                </TooltipWrapper>
-              ) : null;
-            })}
-          </div>
-        </div>
+        {tags.length > 0 && (
+          <p className="mt-2.5 font-mono text-[12px] tracking-[0.03em] text-subtle">
+            {formatTags(tags.slice(0, 5))}
+          </p>
+        )}
 
-        <div className="flex items-center justify-between pt-3 mt-2 border-t border-border/50">
-          <div className="flex items-center gap-1.5">
-            <div className={`size-2 rounded-full ${currentStatus.color}`}></div>
-            <p className="text-xs font-medium text-muted-foreground">
-              {currentStatus.label}
-            </p>
+        {(link || github || video || slug) && (
+          <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+            {slug && (
+              <Link
+                href={`/projects/${slug}`}
+                className="link-retract text-[15px] text-accent transition-opacity duration-150 ease-out active:opacity-70"
+              >
+                Read more
+              </Link>
+            )}
+            {(
+              [
+                link && { label: "Live", href: link },
+                github && { label: "Source", href: github },
+                video && { label: "Demo", href: video },
+              ].filter(Boolean) as { label: string; href: string }[]
+            ).map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[15px] text-subtle underline decoration-transparent underline-offset-4 transition-[color,text-decoration-color,opacity] duration-150 ease-out hover:text-foreground hover:decoration-border-strong active:opacity-70"
+              >
+                {item.label}
+              </a>
+            ))}
           </div>
-          {slug && (
-            <Link
-              href={`/projects/${slug}`}
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 text-xs font-medium hover:text-primary transition-colors ml-auto"
-            >
-              More details
-              <ArrowRight className="size-3" />
-            </Link>
-          )}
-        </div>
+        )}
       </div>
-    </div>
+    </li>
   );
 }
