@@ -13,14 +13,15 @@ export default function ProjectSection() {
       <div className="mb-4 flex items-center gap-3">
         <span
           id="projects"
-          className="shrink-0 font-mono text-[12px] tracking-[0.05em] text-accent"
+          className="text-accent shrink-0 font-mono text-[12px] tracking-[0.05em]"
         >
           Projects
         </span>
-        <span className="h-px flex-1 bg-border" />
+        <span className="bg-border h-px flex-1" />
         <Link
           href="/projects"
-          className="shrink-0 font-mono text-[12px] tracking-[0.05em] text-subtle transition-colors duration-300 hover:text-foreground"
+          data-cuelume-toggle="page"
+          className="text-subtle hover:text-foreground shrink-0 font-mono text-[12px] tracking-[0.05em] transition-colors duration-300"
         >
           View all
         </Link>
@@ -49,7 +50,8 @@ export default function ProjectSection() {
           shouldn't be the last thing on the home page. */}
       <Link
         href="/crafts"
-        className="group mt-12 inline-flex items-center gap-1.5 text-[15px] text-subtle transition-colors duration-300 hover:text-foreground"
+        data-cuelume-toggle="page"
+        className="group text-subtle hover:text-foreground mt-12 inline-flex items-center gap-1.5 text-[15px] transition-colors duration-300"
       >
         Some motion experiments, when I feel creative
         <span

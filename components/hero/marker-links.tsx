@@ -13,7 +13,7 @@ function onEnter(e: React.PointerEvent<HTMLElement>) {
   const fromRight = e.clientX > rect.left + rect.width / 2;
   e.currentTarget.style.setProperty(
     "--marker-origin",
-    fromRight ? "right" : "left"
+    fromRight ? "right" : "left",
   );
 }
 
@@ -36,7 +36,7 @@ export function MarkerLinks({ links }: { links: MarkerLink[] }) {
   return (
     <nav
       aria-label="Contact"
-      className="rise mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 [animation-delay:.36s]"
+      className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2"
     >
       {links.map((link) => {
         if (link.href.startsWith("mailto:")) {

@@ -8,25 +8,25 @@ export default function Pricing() {
   const [premium, setPremium] = useState(0);
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-transparent overflow-hidden">
-      <div className="relative w-full max-w-[300px] scale-100 origin-center">
-        <div className="relative bg-zinc-900 rounded-lg p-1 border border-zinc-800 h-14">
+    <div className="flex h-full w-full items-center justify-center overflow-hidden bg-transparent">
+      <div className="relative w-full max-w-[300px] origin-center scale-100">
+        <div className="relative h-14 rounded-lg border border-zinc-800 bg-zinc-900 p-1">
           <motion.div
             animate={{
               x: selected === 0 ? 2 : "100%",
             }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="absolute top-1 bottom-1 bg-white rounded-md shadow-sm"
+            className="absolute top-1 bottom-1 rounded-md bg-white shadow-sm"
             style={{ width: "calc(50% - 4px)" }}
           />
 
-          <div className="relative z-10 grid grid-cols-2 h-full">
+          <div className="relative z-10 grid h-full grid-cols-2">
             <motion.button
               animate={{
                 color: selected === 0 ? "#000" : "#a1a1aa",
               }}
               onClick={() => setSelected(0)}
-              className="px-6 text-sm font-medium transition-colors relative flex items-center justify-center"
+              className="relative flex items-center justify-center px-6 text-sm font-medium transition-colors"
             >
               Free
             </motion.button>
@@ -41,10 +41,10 @@ export default function Pricing() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.15 }}
                     onClick={() => setSelected(1)}
-                    className="w-full px-10 text-left text-zinc-400 text-sm font-medium hover:text-zinc-300 transition-colors flex flex-col justify-center"
+                    className="flex w-full flex-col justify-center px-10 text-left text-sm font-medium text-zinc-400 transition-colors hover:text-zinc-300"
                   >
                     <div>Premium</div>
-                    <div className="text-xs text-zinc-500 font-normal">
+                    <div className="text-xs font-normal text-zinc-500">
                       Solo / Team
                     </div>
                   </motion.button>
@@ -55,7 +55,7 @@ export default function Pricing() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -5 }}
                     transition={{ duration: 0.15 }}
-                    className="relative rounded-md p-0.5 w-full h-10 flex items-center"
+                    className="relative flex h-10 w-full items-center rounded-md p-0.5"
                   >
                     <motion.div
                       animate={{
@@ -66,17 +66,17 @@ export default function Pricing() {
                         stiffness: 300,
                         damping: 30,
                       }}
-                      className="absolute top-0 bottom-0 w-1/2 bg-black rounded-sm"
+                      className="absolute top-0 bottom-0 w-1/2 rounded-sm bg-black"
                       style={{ width: "calc(50% - 2px)" }}
                     />
 
-                    <div className="relative z-10 grid grid-cols-2 w-full h-full">
+                    <div className="relative z-10 grid h-full w-full grid-cols-2">
                       <motion.button
                         animate={{
                           color: premium === 0 ? "#fff" : "#71717a",
                         }}
                         onClick={() => setPremium(0)}
-                        className="text-xs font-medium transition-colors flex items-center justify-center"
+                        className="flex items-center justify-center text-xs font-medium transition-colors"
                       >
                         Solo
                       </motion.button>
@@ -86,7 +86,7 @@ export default function Pricing() {
                           color: premium === 1 ? "#fff" : "#71717a",
                         }}
                         onClick={() => setPremium(1)}
-                        className="text-xs font-medium transition-colors flex items-center justify-center"
+                        className="flex items-center justify-center text-xs font-medium transition-colors"
                       >
                         Team
                       </motion.button>
@@ -98,7 +98,7 @@ export default function Pricing() {
           </div>
         </div>
 
-        <div className="mt-8 text-center text-zinc-400 text-sm">
+        <div className="mt-8 text-center text-sm text-zinc-400">
           Current:{" "}
           {selected === 0
             ? "Free"
