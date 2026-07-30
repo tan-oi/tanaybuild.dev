@@ -31,6 +31,7 @@ export function MarkerLinks({ links }: { links: MarkerLink[] }) {
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
             onPointerEnter={onEnter}
+            data-cuelume-hover="whisper"
             className="marker text-sm text-subtle transition-colors duration-300 hover:text-foreground"
           >
             {link.label}

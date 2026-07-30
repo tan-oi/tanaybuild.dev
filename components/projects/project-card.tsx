@@ -90,6 +90,7 @@ export function ProjectCard({
             {slug && (
               <Link
                 href={`/projects/${slug}`}
+                data-cuelume-toggle="page"
                 className="link-retract text-[15px] text-accent transition-opacity duration-150 ease-out active:opacity-70"
               >
                 Read more

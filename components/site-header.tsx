@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeSwitcher } from "./theme-switcher";
+import { SoundToggle } from "./sound";
 
 const HOME = { label: "Home", href: "/" };
 
@@ -48,7 +49,10 @@ export function SiteHeader() {
         ))}
       </nav>
 
-      <ThemeSwitcher />
+      <div className="flex items-center gap-3">
+        <SoundToggle />
+        <ThemeSwitcher />
+      </div>
     </header>
   );
 }

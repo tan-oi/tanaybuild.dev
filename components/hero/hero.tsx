@@ -1,4 +1,5 @@
 import { ThemeSwitcher } from "../theme-switcher";
+import { SoundToggle } from "../sound";
 import { MarkerLinks, type MarkerLink } from "./marker-links";
 
 /** Bump this by hand when the page content actually changes. */
@@ -25,7 +26,8 @@ export function Hero() {
               Updated {LAST_UPDATED}
             </span>
           </div>
-          <div className="pt-2">
+          <div className="flex items-center gap-3 pt-2">
+            <SoundToggle />
             <ThemeSwitcher />
           </div>
         </header>

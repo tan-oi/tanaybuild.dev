@@ -69,6 +69,7 @@ function Slab({ item }: { item: Experience }) {
       {item.slug && (
         <Link
           href={`/work/${item.slug}`}
+          data-cuelume-toggle="page"
           className="link-retract mt-3 inline-block text-[15px] text-accent"
         >
           {isCurrent ? "What I'm actually working on" : "What I actually worked on"}

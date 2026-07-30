@@ -56,6 +56,8 @@ export function ThemeSwitcher() {
           onClick={() => select(theme.id)}
           aria-label={`${theme.name} theme`}
           aria-pressed={theme.id === active}
+          data-cuelume-press="press"
+          data-cuelume-release="release"
           style={{ background: theme.dot }}
           // Press feedback fires on pointer-down, not on release — waiting for
           // the click to acknowledge the tap reads as lag.
