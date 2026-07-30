@@ -146,7 +146,9 @@
 
 html {
   background: var(--background);
-  scroll-behavior: smooth;
+  /* No scroll-behavior: smooth here — it turns the App Router's
+     scrollTo(0, 0) on navigation into an animation that races the next
+     render, so pages open part-way down. */
 }
 
 body {
@@ -165,6 +167,14 @@ body {
 ::selection {
   background: var(--accent);
   color: var(--accent-foreground);
+}
+
+/* Keyboard focus is visible everywhere by default. :where() keeps specificity
+   at zero, so a component can still opt out or restyle it. */
+:where(a, button, [tabindex]:not([tabindex="-1"]), input, textarea, select):focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 h1,
@@ -276,9 +286,6 @@ body::before {
     transition-property: opacity, color, background-color, border-color,
       text-decoration-color !important;
     transition-duration: 150ms !important;
-  }
-  html {
-    scroll-behavior: auto;
   }
   .rise {
     opacity: 1;

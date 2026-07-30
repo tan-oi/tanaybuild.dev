@@ -23,6 +23,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  // Relative metadata URLs (the OG image below) resolve against this. Without
+  // it Next falls back to localhost and every shared link previews broken.
+  metadataBase: new URL("https://tanaybuild.dev"),
   title: "Tanay Ghoriwala",
   description: "Software engineer.",
   // icons: {
