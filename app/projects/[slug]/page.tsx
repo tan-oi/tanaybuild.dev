@@ -1,7 +1,15 @@
 import { getProjectBySlug, getAllProjects } from "@/lib/projects";
 import { formatTags, projects } from "@/lib/data";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { Cpu, Zap, Layout, Layers, ArrowRight, GitBranch, Map } from "lucide-react";
+import {
+  Cpu,
+  Zap,
+  Layout,
+  Layers,
+  ArrowRight,
+  GitBranch,
+  Map,
+} from "lucide-react";
 import { notFound } from "next/navigation";
 import { Prose } from "@/components/prose";
 
@@ -29,7 +37,6 @@ export default async function ProjectPage({
 
   const meta = projects.find((p) => p.slug === slug);
 
-
   const links = [
     meta?.link && { label: "Live", href: meta.link },
     meta?.github && { label: "Source", href: meta.github },
@@ -38,29 +45,29 @@ export default async function ProjectPage({
 
   return (
     <>
-      <h1 className="rise text-[22px] leading-[1.35] font-medium tracking-[-0.02em] text-balance [animation-delay:.12s]">
+      <h1 className="text-[22px] leading-[1.35] font-medium tracking-[-0.02em] text-balance">
         {project.title}
       </h1>
 
-      <p className="rise mt-4 max-w-[34rem] text-[15px] text-muted-foreground text-pretty [animation-delay:.2s]">
+      <p className="text-muted-foreground mt-4 max-w-[34rem] text-[15px] text-pretty">
         {project.description}
       </p>
 
       {meta?.tags && meta.tags.length > 0 && (
-        <p className="rise mt-4 font-mono text-[12px] tracking-[0.03em] text-muted-foreground [animation-delay:.2s]">
+        <p className="text-muted-foreground mt-4 font-mono text-[12px] tracking-[0.03em]">
           {formatTags(meta.tags)}
         </p>
       )}
 
       {links.length > 0 && (
-        <div className="rise mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 [animation-delay:.28s]">
+        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
           {links.map((item) => (
             <a
               key={item.label}
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[15px] text-subtle underline decoration-transparent underline-offset-4 transition-[color,text-decoration-color,opacity] duration-150 ease-out hover:text-foreground hover:decoration-border-strong active:opacity-70"
+              className="text-subtle hover:text-foreground hover:decoration-border-strong text-[15px] underline decoration-transparent underline-offset-4 transition-[color,text-decoration-color,opacity] duration-150 ease-out active:opacity-70"
             >
               {item.label}
             </a>
@@ -68,7 +75,7 @@ export default async function ProjectPage({
         </div>
       )}
 
-      <div className="rise mt-10 h-px bg-border [animation-delay:.36s]" />
+      <div className="bg-border mt-10 h-px" />
 
       <Prose>
         <MDXRemote source={project.content} components={components} />

@@ -17,12 +17,12 @@ export function Hero() {
   return (
     <>
       <div className="mb-20">
-        <header className="rise mb-10 flex items-start justify-between gap-4 [animation-delay:.04s]">
+        <header className="mb-10 flex items-start justify-between gap-4">
           <div>
             <h2 className="text-[19px] leading-tight font-medium tracking-[-0.02em]">
               Tanay Ghoriwala
             </h2>
-            <span className="mt-1.5 block font-mono text-[12px] tracking-[0.05em] text-subtle">
+            <span className="text-subtle mt-1.5 block font-mono text-[12px] tracking-[0.05em]">
               Updated {LAST_UPDATED}
             </span>
           </div>
@@ -32,13 +32,13 @@ export function Hero() {
           </div>
         </header>
 
-        <h1 className="rise mb-4 text-[15px] leading-[1.7] font-normal [animation-delay:.12s]">
+        <h1 className="mb-4 text-[15px] leading-[1.7] font-normal">
           I&apos;m a software developer based in India, i like building and
           playing around with stupid things on my ide/cc on some very
           questionable hours
         </h1>
 
-        <p className="rise text-[15px] mb-4 text-muted-foreground text-pretty [animation-delay:.2s]">
+        <p className="text-muted-foreground mb-4 text-[15px] text-pretty">
           I like reverse-engineering things. Spent days in{" "}
           <a
             className="link-retract text-foreground"
@@ -54,8 +54,8 @@ export function Hero() {
 
         {/* The one fact the old About section carried that the copy above
             doesn't — kept as a line rather than a section. */}
-        <p className="rise mt-5 flex items-center gap-2 font-mono text-[12px] tracking-[0.05em] text-subtle [animation-delay:.28s]">
-          <span className="size-[5px] shrink-0 animate-pulse rounded-full bg-accent" />
+        <p className="text-subtle mt-5 flex items-center gap-2 font-mono text-[12px] tracking-[0.05em]">
+          <span className="bg-accent size-[5px] shrink-0 rounded-full" />
           Now — learning distributed systems
         </p>
 

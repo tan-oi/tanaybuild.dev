@@ -27,10 +27,10 @@ export function SiteHeader() {
   if (pathname === "/") return null;
 
   return (
-    <header className="rise mb-14 flex items-center justify-between gap-4 [animation-delay:.04s]">
+    <header className="mb-14 flex items-center justify-between gap-4">
       <nav
         aria-label="Breadcrumb"
-        className="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[12px] tracking-[0.05em] text-subtle"
+        className="text-subtle flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[12px] tracking-[0.05em]"
       >
         {trail.map((item, i) => (
           <span key={item.href} className="flex items-center gap-2.5">
@@ -41,7 +41,7 @@ export function SiteHeader() {
             )}
             <Link
               href={item.href}
-              className="transition-colors duration-300 hover:text-foreground"
+              className="hover:text-foreground transition-colors duration-300"
             >
               {item.label}
             </Link>

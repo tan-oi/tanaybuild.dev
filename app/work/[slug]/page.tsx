@@ -25,38 +25,38 @@ export default async function WorkPage({
 
   return (
     <>
-      <p className="rise mb-5 font-mono text-[12px] tracking-[0.05em] text-subtle [animation-delay:.12s]">
+      <p className="text-subtle mb-5 font-mono text-[12px] tracking-[0.05em]">
         {kicker}
       </p>
 
-      <h1 className="rise text-[22px] leading-[1.35] font-medium tracking-[-0.02em] text-balance [animation-delay:.12s]">
+      <h1 className="text-[22px] leading-[1.35] font-medium tracking-[-0.02em] text-balance">
         {meta ? `${meta.role} at ${work.title}` : work.title}
       </h1>
 
-      <p className="rise mt-4 max-w-[34rem] text-[15px] text-muted-foreground text-pretty [animation-delay:.2s]">
+      <p className="text-muted-foreground mt-4 max-w-[34rem] text-[15px] text-pretty">
         {work.description}
       </p>
 
       {meta?.tags && meta.tags.length > 0 && (
-        <p className="rise mt-4 font-mono text-[12px] tracking-[0.03em] text-muted-foreground [animation-delay:.2s]">
+        <p className="text-muted-foreground mt-4 font-mono text-[12px] tracking-[0.03em]">
           {formatTags(meta.tags)}
         </p>
       )}
 
       {meta?.companyUrl && (
-        <div className="rise mt-5 [animation-delay:.28s]">
+        <div className="mt-5">
           <a
             href={meta.companyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[15px] text-subtle underline decoration-transparent underline-offset-4 transition-[color,text-decoration-color,opacity] duration-150 ease-out hover:text-foreground hover:decoration-border-strong active:opacity-70"
+            className="text-subtle hover:text-foreground hover:decoration-border-strong text-[15px] underline decoration-transparent underline-offset-4 transition-[color,text-decoration-color,opacity] duration-150 ease-out active:opacity-70"
           >
             Visit {meta.company}
           </a>
         </div>
       )}
 
-      <div className="rise mt-10 h-px bg-border [animation-delay:.36s]" />
+      <div className="bg-border mt-10 h-px" />
 
       <Prose>
         <MDXRemote source={work.content} />
