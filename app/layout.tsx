@@ -2,8 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import LocalTime from "@/components/local-time";
 import UmamiAnalytics from "@/components/analytics";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -49,8 +50,11 @@ export default function RootLayout({
     >
       <body className="antialiased relative">
         <ThemeProvider>
-          <LocalTime />
-          {children}
+          <main className="relative z-1 mx-auto max-w-2xl px-6 py-24 font-sans">
+            <SiteHeader />
+            {children}
+            <SiteFooter />
+          </main>
           <UmamiAnalytics />
         </ThemeProvider>
       </body>

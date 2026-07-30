@@ -50,6 +50,13 @@ export function Hero() {
           own mini version, and eventually got the opportunity to work there.
         </p>
 
+        {/* The one fact the old About section carried that the copy above
+            doesn't — kept as a line rather than a section. */}
+        <p className="rise mt-5 flex items-center gap-2 font-mono text-[12px] tracking-[0.05em] text-subtle [animation-delay:.28s]">
+          <span className="size-[5px] shrink-0 animate-pulse rounded-full bg-accent" />
+          Now — learning distributed systems
+        </p>
+
         <MarkerLinks links={links} />
       </div>
     </>
