@@ -1,9 +1,8 @@
 import { getAllWork, getWorkBySlug } from "@/lib/work";
-import { experiences } from "@/lib/data";
+import { experiences, formatTags } from "@/lib/data";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Prose } from "@/components/prose";
 
 export async function generateStaticParams() {
   return getAllWork().map((w) => ({ slug: w.slug }));
@@ -20,47 +19,48 @@ export default async function WorkPage({
 
   const meta = experiences.find((e) => e.slug === slug);
 
+  const kicker = ["Work", work.title, meta && `${meta.start} — ${meta.end}`]
+    .filter(Boolean)
+    .join(" · ");
+
   return (
-    <div className="bg-gradient min-h-screen">
-      <div className="max-w-3xl mx-auto px-6 py-12">
-        <Link
-          href="/"
-          className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 mb-8"
-        >
-          <ArrowLeft className="size-4" />
-          Back home
-        </Link>
+    <>
+      <p className="rise mb-5 font-mono text-[12px] tracking-[0.05em] text-subtle [animation-delay:.12s]">
+        {kicker}
+      </p>
 
-        <header className="mb-10 pb-8 border-b border-border/50">
-          <h1 className="text-3xl sm:text-4xl font-semibold text-primary tracking-tight">
-            {work.title}
-          </h1>
-          {meta && (
-            <p className="text-sm text-muted-foreground font-mono mt-2">
-              {meta.role} · {meta.start} — {meta.end}
-            </p>
-          )}
-          <p className="text-muted-foreground leading-relaxed mt-4 max-w-2xl">
-            {work.description}
-          </p>
+      <h1 className="rise text-[22px] leading-[1.35] font-medium tracking-[-0.02em] text-balance [animation-delay:.12s]">
+        {meta ? `${meta.role} at ${work.title}` : work.title}
+      </h1>
 
-          {meta?.companyUrl && (
-            <Link
-              href={meta.companyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-sm text-foreground hover:text-primary transition-colors mt-5"
-            >
-              Visit {meta.company}
-              <ArrowUpRight className="size-3.5" />
-            </Link>
-          )}
-        </header>
+      <p className="rise mt-4 max-w-[34rem] text-[15px] text-muted-foreground text-pretty [animation-delay:.2s]">
+        {work.description}
+      </p>
 
-        <article className="prose prose-invert prose-zinc max-w-none selection:bg-primary selection:text-primary-foreground prose-headings:text-primary prose-headings:font-semibold prose-h1:hidden prose-h2:text-xl prose-h3:text-lg prose-p:text-muted-foreground prose-p:leading-relaxed prose-strong:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-code:text-foreground prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-hr:border-border/50 prose-li:text-muted-foreground">
-          <MDXRemote source={work.content} />
-        </article>
-      </div>
-    </div>
+      {meta?.tags && meta.tags.length > 0 && (
+        <p className="rise mt-4 font-mono text-[12px] tracking-[0.03em] text-muted-foreground [animation-delay:.2s]">
+          {formatTags(meta.tags)}
+        </p>
+      )}
+
+      {meta?.companyUrl && (
+        <div className="rise mt-5 [animation-delay:.28s]">
+          <a
+            href={meta.companyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[15px] text-subtle underline decoration-transparent underline-offset-4 transition-[color,text-decoration-color,opacity] duration-150 ease-out hover:text-foreground hover:decoration-border-strong active:opacity-70"
+          >
+            Visit {meta.company}
+          </a>
+        </div>
+      )}
+
+      <div className="rise mt-10 h-px bg-border [animation-delay:.36s]" />
+
+      <Prose>
+        <MDXRemote source={work.content} />
+      </Prose>
+    </>
   );
 }

@@ -7,7 +7,7 @@ export default function ProjectSection() {
   if (featured.length === 0) return null;
 
   return (
-    <section aria-labelledby="projects" className="mb-20">
+    <section aria-labelledby="projects" className="mb-12">
       {/* Same label-and-rule header as Experience; "View all" sits at the end
           of the rule rather than as a second competing heading. */}
       <div className="mb-4 flex items-center gap-3">
@@ -44,6 +44,21 @@ export default function ProjectSection() {
           />
         ))}
       </ol>
+
+      {/* Crafts lives on its own page — the demos are heavy enough that they
+          shouldn't be the last thing on the home page. */}
+      <Link
+        href="/crafts"
+        className="group mt-12 inline-flex items-center gap-1.5 text-[15px] text-subtle transition-colors duration-300 hover:text-foreground"
+      >
+        Some motion experiments, when I feel creative
+        <span
+          aria-hidden
+          className="inline-block transition-transform duration-300 ease-[cubic-bezier(.23,1,.32,1)] group-hover:translate-x-0.5"
+        >
+          →
+        </span>
+      </Link>
     </section>
   );
 }
