@@ -35,7 +35,7 @@ export function SoundToggle() {
       aria-pressed={on}
       aria-label={on ? "Turn sound off" : "Turn sound on"}
       title={on ? "Sound on" : "Sound off"}
-      className={`cursor-pointer transition-colors duration-300 hover:text-foreground ${
+      className={`hover:text-foreground cursor-pointer transition-colors duration-300 ${
         on ? "text-foreground" : "text-subtle"
       }`}
     >

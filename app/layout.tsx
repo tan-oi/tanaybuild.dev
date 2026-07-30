@@ -51,7 +51,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="antialiased relative">
+      <body className="relative antialiased">
         <ThemeProvider>
           <main className="relative z-1 mx-auto max-w-2xl px-6 py-24 font-sans">
             <SiteHeader />

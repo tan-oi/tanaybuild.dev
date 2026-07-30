@@ -19,14 +19,14 @@ export default function MotionDropdown() {
   const displayName = selectedOption ? selectedOption.label : selectedValue;
 
   return (
-    <div className="w-full h-full flex items-start justify-center bg-transparent pt-24">
+    <div className="flex h-full w-full items-start justify-center bg-transparent pt-24">
       <div className="relative">
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] as any }}
-          className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2.5 rounded-lg flex items-center gap-3 border border-slate-700 min-w-[180px] justify-between"
+          className="flex min-w-[180px] items-center justify-between gap-3 rounded-lg border border-slate-700 bg-slate-800 px-4 py-2.5 text-white hover:bg-slate-700"
         >
           <motion.span
             key={displayName}
@@ -76,7 +76,7 @@ export default function MotionDropdown() {
                 duration: 0.25,
                 ease: [0.16, 1, 0.3, 1] as any,
               }}
-              className="absolute top-full mt-2 w-full bg-slate-800/95 backdrop-blur-xl border border-slate-700 rounded-lg overflow-hidden z-50"
+              className="absolute top-full z-50 mt-2 w-full overflow-hidden rounded-lg border border-slate-700 bg-slate-800/95 backdrop-blur-xl"
             >
               {options.map((option, index) => {
                 const isSelected = selectedValue === option.value;
@@ -95,12 +95,12 @@ export default function MotionDropdown() {
                       setSelectedValue(option.value);
                       setIsOpen(false);
                     }}
-                    className={`w-full px-4 py-2.5 text-left flex items-center gap-2 hover:bg-slate-700/70 transition-colors relative ${
+                    className={`relative flex w-full items-center gap-2 px-4 py-2.5 text-left transition-colors hover:bg-slate-700/70 ${
                       isSelected ? "bg-slate-700/50" : ""
                     }`}
                   >
                     <motion.span
-                      className="text-white flex items-center gap-2"
+                      className="flex items-center gap-2 text-white"
                       animate={{
                         x: isSelected ? 2 : 0,
                       }}

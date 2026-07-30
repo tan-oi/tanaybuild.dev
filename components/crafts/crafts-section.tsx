@@ -31,14 +31,14 @@ export default function CraftSection() {
       <div className="mb-4 flex items-center gap-3">
         <span
           id="crafts"
-          className="shrink-0 font-mono text-[12px] tracking-[0.05em] text-accent"
+          className="text-accent shrink-0 font-mono text-[12px] tracking-[0.05em]"
         >
           Crafts
         </span>
-        <span className="h-px flex-1 bg-border" />
+        <span className="bg-border h-px flex-1" />
       </div>
 
-      <p className="mb-6 max-w-[30rem] text-[15px] text-muted-foreground text-pretty">
+      <p className="text-muted-foreground mb-6 max-w-[30rem] text-[15px] text-pretty">
         Small UI experiments, powered by my new found love towards motion.
       </p>
 
@@ -48,13 +48,13 @@ export default function CraftSection() {
             {/* The demo is the content, so the frame stays a hairline — no
                 card, no fill, nothing competing with what's inside it. */}
             <div
-              className={`relative grid aspect-video place-items-center rounded-lg ring-1 ring-inset ring-border ${
+              className={`ring-border relative grid aspect-video place-items-center rounded-lg ring-1 ring-inset ${
                 craft.clip ? "overflow-hidden" : "z-20"
               }`}
             >
               {craft.demo}
             </div>
-            <p className="mt-2.5 flex gap-2 font-mono text-[12px] tracking-[0.03em] text-subtle">
+            <p className="text-subtle mt-2.5 flex gap-2 font-mono text-[12px] tracking-[0.03em]">
               <span className="tabular-nums">
                 {String(i + 1).padStart(2, "0")}
               </span>

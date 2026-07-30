@@ -28,12 +28,16 @@ function syncThemeColor() {
       "content",
       getComputedStyle(document.documentElement)
         .getPropertyValue("--background")
-        .trim()
+        .trim(),
     );
 }
 
 export function ThemeSwitcher() {
-  const active = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const active = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
 
   const select = useCallback((id: string) => {
     const el = document.documentElement;
@@ -48,7 +52,11 @@ export function ThemeSwitcher() {
   return (
     // Chips overlap into a stack at rest and spread apart on hover — the
     // separator ring is drawn in --background so they read as stacked paper.
-    <div className="group flex items-center" role="group" aria-label="Colour theme">
+    <div
+      className="group flex items-center"
+      role="group"
+      aria-label="Colour theme"
+    >
       {themes.map((theme, i) => (
         <button
           key={theme.id}
@@ -61,7 +69,7 @@ export function ThemeSwitcher() {
           style={{ background: theme.dot }}
           // Press feedback fires on pointer-down, not on release — waiting for
           // the click to acknowledge the tap reads as lag.
-          className={`size-[15px] cursor-pointer rounded-full transition-[margin,transform,box-shadow] duration-[420ms] ease-[cubic-bezier(.16,1,.3,1)] hover:z-10 hover:-translate-y-[3px] active:scale-90 active:duration-[100ms] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-foreground ${
+          className={`focus-visible:outline-foreground size-[15px] cursor-pointer rounded-full transition-[margin,transform,box-shadow] duration-[420ms] ease-[cubic-bezier(.16,1,.3,1)] hover:z-10 hover:-translate-y-[3px] focus-visible:outline-2 focus-visible:outline-offset-3 active:scale-90 active:duration-[100ms] ${
             i === 0 ? "ml-0" : "-ml-1.5 group-hover:ml-[3px]"
           } ${
             theme.id === active
