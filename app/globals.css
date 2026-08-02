@@ -214,6 +214,13 @@ body::before {
   }
 }
 
+/* Tooltip arrow follows the accent pill applied at the usage site (the
+   shared component hardcodes its own arrow colors). */
+[data-slot="tooltip-content"].bg-accent svg {
+  background-color: var(--accent);
+  fill: var(--accent);
+}
+
 /* Underline that retracts on hover — used for emphasised inline links. */
 .link-retract {
   position: relative;

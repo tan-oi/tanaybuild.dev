@@ -61,7 +61,7 @@ function Slab({ item }: { item: Experience }) {
       )}
 
       {item.tags && item.tags.length > 0 && (
-        <p className="text-muted-foreground mt-3 font-mono text-[12px] tracking-[0.03em]">
+        <p className="text-subtle mt-3 font-mono text-[12px] tracking-[0.03em]">
           {formatTags(item.tags)}
         </p>
       )}
@@ -70,7 +70,7 @@ function Slab({ item }: { item: Experience }) {
         <Link
           href={`/work/${item.slug}`}
           data-cuelume-toggle="page"
-          className="link-retract text-accent mt-3 inline-block text-[15px]"
+          className="link-retract text-accent mt-4 inline-block text-[15px]"
         >
           {isCurrent
             ? "What I'm actually working on"

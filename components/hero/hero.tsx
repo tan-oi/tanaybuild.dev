@@ -4,9 +4,11 @@ import { MarkerLinks, type MarkerLink } from "./marker-links";
 
 /** Bump this by hand when the page content actually changes. */
 const LAST_UPDATED = "July 2026";
-
+const RESUME_URL = process.env.NEXT_PUBLIC_RESUME_URL ?? "";
+const CURRENT_LEARNING =
+  process.env.NEXT_PUBLIC_CURRENT_LEARNING ?? "Contemplating life decisions";
 const links: MarkerLink[] = [
-  { label: "Résumé", href: "/resume.pdf" },
+  { label: "Résumé", href: RESUME_URL, title: "Opens as a PDF in a new tab" },
   { label: "Email", href: "mailto:tan.dev.x@gmail.com" },
   { label: "GitHub", href: "https://github.com/tan-oi" },
   { label: "X", href: "https://x.com/tan0i_" },
@@ -56,7 +58,7 @@ export function Hero() {
             doesn't — kept as a line rather than a section. */}
         <p className="text-subtle mt-5 flex items-center gap-2 font-mono text-[12px] tracking-[0.05em]">
           <span className="bg-accent size-[5px] shrink-0 rounded-full" />
-          Now — learning distributed systems
+          Now — {CURRENT_LEARNING}
         </p>
 
         <MarkerLinks links={links} />

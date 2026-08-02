@@ -85,12 +85,12 @@ export function ProjectCard({
 
         {tags.length > 0 && (
           <p className="text-subtle mt-2.5 font-mono text-[12px] tracking-[0.03em]">
-            {formatTags(tags.slice(0, 5))}
+            {formatTags(tags)}
           </p>
         )}
 
         {(link || github || video || slug) && (
-          <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
             {slug && (
               <Link
                 href={`/projects/${slug}`}

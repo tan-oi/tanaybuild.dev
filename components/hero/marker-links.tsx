@@ -1,11 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { Fragment, useCallback, useState } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export type MarkerLink = {
   label: string;
   href: string;
+  title?: string;
 };
 
 function onEnter(e: React.PointerEvent<HTMLElement>) {
@@ -59,10 +65,10 @@ export function MarkerLinks({ links }: { links: MarkerLink[] }) {
           );
         }
 
-        const external = link.href.startsWith("http");
-        return (
+        const external =
+          link.href.startsWith("http") || link.href.endsWith(".pdf");
+        const linkNode = (
           <Link
-            key={link.label}
             href={link.href}
             {...(external
               ? { target: "_blank", rel: "noopener noreferrer" }
@@ -73,6 +79,18 @@ export function MarkerLinks({ links }: { links: MarkerLink[] }) {
           >
             {link.label}
           </Link>
+        );
+        if (!link.title) return <Fragment key={link.label}>{linkNode}</Fragment>;
+        return (
+          <Tooltip key={link.label} delayDuration={200}>
+            <TooltipTrigger asChild>{linkNode}</TooltipTrigger>
+            <TooltipContent
+              sideOffset={4}
+              className="bg-accent text-accent-foreground"
+            >
+              {link.title}
+            </TooltipContent>
+          </Tooltip>
         );
       })}
     </nav>

@@ -38,7 +38,7 @@ export default async function WorkPage({
       </p>
 
       {meta?.tags && meta.tags.length > 0 && (
-        <p className="text-muted-foreground mt-4 font-mono text-[12px] tracking-[0.03em]">
+        <p className="text-subtle mt-4 font-mono text-[12px] tracking-[0.03em]">
           {formatTags(meta.tags)}
         </p>
       )}
