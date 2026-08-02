@@ -9,7 +9,8 @@ const HOME = { label: "Home", href: "/" };
 
 /** The pages above this one, outermost first. */
 function ancestorsOf(pathname: string) {
-  if (pathname.startsWith("/projects/")) {
+  const segments = pathname.split("/").filter(Boolean);
+  if (segments[0] === "projects" && segments.length > 1) {
     return [HOME, { label: "All projects", href: "/projects" }];
   }
   return [HOME];
@@ -22,7 +23,6 @@ function ancestorsOf(pathname: string) {
  */
 export function SiteHeader() {
   const pathname = usePathname();
-  // Home's masthead lives in the hero; a "Home" crumb there is nonsense.
   const trail = ancestorsOf(pathname);
   if (pathname === "/") return null;
 
