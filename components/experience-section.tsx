@@ -50,12 +50,12 @@ function Slab({ item }: { item: Experience }) {
         </span>
       </div>
 
-      <p className="text-muted-foreground mt-3 max-w-[30rem] text-[15px] text-pretty">
+      <p className="text-muted-foreground mt-3 text-[15px] text-pretty">
         {item.description}
       </p>
 
       {item.note && (
-        <p className="text-subtle mt-1.5 max-w-[30rem] text-[15px] italic">
+        <p className="text-subtle mt-1.5 text-[15px] italic">
           {item.note}
         </p>
       )}

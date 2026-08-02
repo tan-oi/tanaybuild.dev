@@ -1,19 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Schibsted_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import UmamiAnalytics from "@/components/analytics";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
-const inter = Inter({
-  variable: "--font-inter",
+const schibstedGrotesk = Schibsted_Grotesk({
+  variable: "--font-schibsted",
   subsets: ["latin"],
   weight: ["400", "500"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-ibm-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
 });
@@ -49,7 +49,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${schibstedGrotesk.variable} ${ibmPlexMono.variable}`}
     >
       <body className="relative antialiased">
         <ThemeProvider>

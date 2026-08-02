@@ -33,7 +33,7 @@ export default async function WorkPage({
         {meta ? `${meta.role} at ${work.title}` : work.title}
       </h1>
 
-      <p className="text-muted-foreground mt-4 max-w-[34rem] text-[15px] text-pretty">
+      <p className="text-muted-foreground mt-4 text-[15px] text-pretty">
         {work.description}
       </p>
 

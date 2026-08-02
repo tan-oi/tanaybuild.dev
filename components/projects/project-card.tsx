@@ -79,7 +79,7 @@ export function ProjectCard({
           </p>
         )}
 
-        <p className="text-muted-foreground mt-2 max-w-[30rem] text-[15px] text-pretty">
+        <p className="text-muted-foreground mt-2 text-[15px] text-pretty">
           {description}
         </p>
 
