@@ -1,34 +1,16 @@
 export default function Moving() {
   return (
-    <div className="w-full h-full flex justify-center items-center bg-neutral-950 overflow-hidden">
-      <div className="scale-90 sm:scale-100 origin-center flex flex-col gap-8 items-center">
-        <div className="w-52 h-2 bg-cyan-500 rounded shadow-[0_10px_20px_cyan,0_20px_40px_cyan,0_30px_60px_cyan] outline outline-cyan-400 transition duration-500"></div>
+    <div className="flex h-full w-full items-center justify-center overflow-hidden bg-neutral-950">
+      <div className="flex origin-center scale-90 flex-col items-center gap-8 sm:scale-100">
+        <div className="h-2 w-52 rounded bg-cyan-500 shadow-[0_10px_20px_cyan,0_20px_40px_cyan,0_30px_60px_cyan] outline outline-cyan-400 transition duration-500"></div>
 
-        <div className="grid grid-cols-1 grid-rows-1 w-[300px] h-[200px]">
-          <div
-            className="col-start-1 row-start-1 z-1 justify-self-start self-start
-                            w-[290px] h-[190px] mt-3 -ml-3
-                            bg-neutral-700/30 rounded-xl backdrop-blur-xl 
-                            shadow-[inset_0_2px_3px_0_rgba(34,211,238,0.1),inset_0_-2px_3px_0_rgba(0,0,0,0.2)]
-                            -rotate-3 blur-[1px] border-t border-cyan-300
-                            animate-[swing_7s_linear_infinite]"
-          ></div>
+        <div className="grid h-[200px] w-[300px] grid-cols-1 grid-rows-1">
+          <div className="z-1 col-start-1 row-start-1 mt-3 -ml-3 h-[190px] w-[290px] -rotate-3 animate-[swing_7s_linear_infinite] self-start justify-self-start rounded-xl border-t border-cyan-300 bg-neutral-700/30 shadow-[inset_0_2px_3px_0_rgba(34,211,238,0.1),inset_0_-2px_3px_0_rgba(0,0,0,0.2)] blur-[1px] backdrop-blur-xl"></div>
 
-          <div
-            className="col-start-1 row-start-1 z-2 justify-self-end self-start
-                            w-[295px] h-[195px] mt-2 -mr-2
-                            bg-transparent rounded-xl backdrop-blur-xl blur-[1px]
-                            border-t border-cyan-300
-                            shadow-[inset_0_2px_3px_0_rgba(34,211,238,0.15),inset_0_-2px_3px_0_rgba(0,0,0,0.25)]
-                            rotate-2
-                            animate-[swing-reverse_7s_linear_infinite]"
-          ></div>
+          <div className="z-2 col-start-1 row-start-1 mt-2 -mr-2 h-[195px] w-[295px] rotate-2 animate-[swing-reverse_7s_linear_infinite] self-start justify-self-end rounded-xl border-t border-cyan-300 bg-transparent shadow-[inset_0_2px_3px_0_rgba(34,211,238,0.15),inset_0_-2px_3px_0_rgba(0,0,0,0.25)] blur-[1px] backdrop-blur-xl"></div>
 
-          <div
-            className="col-start-1 row-start-1 z-3 justify-self-start self-end
-                            w-48 h-48 -ml-20 -mb-20"
-          >
-            <svg className="w-full h-full" viewBox="0 0 487 487">
+          <div className="z-3 col-start-1 row-start-1 -mb-20 -ml-20 h-48 w-48 self-end justify-self-start">
+            <svg className="h-full w-full" viewBox="0 0 487 487">
               <circle
                 cx="243.5"
                 cy="243.5"
@@ -55,11 +37,8 @@ export default function Moving() {
             </svg>
           </div>
 
-          <div
-            className="col-start-1 row-start-1 z-3 justify-self-end self-start
-                            w-20 h-20 -mr-10 -mt-12"
-          >
-            <svg className="w-full h-full" viewBox="0 0 487 487">
+          <div className="z-3 col-start-1 row-start-1 -mt-12 -mr-10 h-20 w-20 self-start justify-self-end">
+            <svg className="h-full w-full" viewBox="0 0 487 487">
               <circle
                 cx="243.5"
                 cy="243.5"
@@ -87,31 +66,24 @@ export default function Moving() {
             </svg>
           </div>
 
-          <div
-            className="col-start-1 row-start-1 z-4 justify-self-center self-center
-                            group w-full h-full
-                            bg-linear-to-b from-neutral-800 to-neutral-900
-                            rounded-2xl p-4 text-white backdrop-blur-xl
-                            shadow-[inset_0_2px_3px_0_rgba(34,211,238,0.2),inset_0_-2px_3px_0_rgba(0,0,0,0.3)]
-                            hover:scale-105 transition-transform duration-300"
-          >
-            <div className="p-2 flex flex-col gap-4">
-              <p className="font-light tracking-wide text-lg">
+          <div className="group z-4 col-start-1 row-start-1 h-full w-full self-center justify-self-center rounded-2xl bg-linear-to-b from-neutral-800 to-neutral-900 p-4 text-white shadow-[inset_0_2px_3px_0_rgba(34,211,238,0.2),inset_0_-2px_3px_0_rgba(0,0,0,0.3)] backdrop-blur-xl transition-transform duration-300 hover:scale-105">
+            <div className="flex flex-col gap-4 p-2">
+              <p className="text-lg font-light tracking-wide">
                 Design Smarter, Not Harder
               </p>
 
-              <p className="font-extralight italic tracking-wider leading-5 text-md text-neutral-400">
+              <p className="text-md leading-5 font-extralight tracking-wider text-neutral-400 italic">
                 Unlock better designs, at comparatively less efforts
               </p>
 
-              <button className="w-2/3 backdrop-blur-md rounded-full bg-linear-to-r from-neutral-900 via-neutral-700/50 to-neutral-700 group-hover:via-neutral-900 group-hover:to-neutral-800 transition-colors duration-500 h-9 group-hover:border-l border-gray-500">
-                <span className="text-neutral-500 text-md group-hover:text-neutral-400">
+              <button className="h-9 w-2/3 rounded-full border-gray-500 bg-linear-to-r from-neutral-900 via-neutral-700/50 to-neutral-700 backdrop-blur-md transition-colors duration-500 group-hover:border-l group-hover:via-neutral-900 group-hover:to-neutral-800">
+                <span className="text-md text-neutral-500 group-hover:text-neutral-400">
                   Get Started
                 </span>
               </button>
             </div>
 
-            <div className="absolute top-0 inset-x-0 w-full h-1 bg-linear-to-r from-transparent via-cyan-500 to-transparent rounded-lg overflow-hidden"></div>
+            <div className="absolute inset-x-0 top-0 h-1 w-full overflow-hidden rounded-lg bg-linear-to-r from-transparent via-cyan-500 to-transparent"></div>
           </div>
         </div>
       </div>

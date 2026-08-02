@@ -38,7 +38,7 @@ export function ContactForm() {
   };
 
   return (
-    <div className=" backdrop-blur-sm p-8 rounded-xl  ">
+    <div className="rounded-xl p-8 backdrop-blur-sm">
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-2">
           <Label htmlFor="name" className="text-muted-foreground">
@@ -47,11 +47,11 @@ export function ContactForm() {
           <Input
             id="name"
             {...register("name")}
-            className="flex h-10 w-full rounded-md border border-input  px-3 py-2 text-sm"
+            className="border-input flex h-10 w-full rounded-md border px-3 py-2 text-sm"
             placeholder="Your Name"
           />
           {errors.name && (
-            <p className="text-xs text-destructive">{errors.name.message}</p>
+            <p className="text-destructive text-xs">{errors.name.message}</p>
           )}
         </div>
 
@@ -63,11 +63,11 @@ export function ContactForm() {
             id="email"
             type="email"
             {...register("email")}
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            className="border-input bg-background flex h-10 w-full rounded-md border px-3 py-2 text-sm"
             placeholder="you@example.com"
           />
           {errors.email && (
-            <p className="text-xs text-destructive">{errors.email.message}</p>
+            <p className="text-destructive text-xs">{errors.email.message}</p>
           )}
         </div>
 
@@ -79,11 +79,11 @@ export function ContactForm() {
             id="phone"
             type="tel"
             {...register("phone")}
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            className="border-input bg-background flex h-10 w-full rounded-md border px-3 py-2 text-sm"
             placeholder="+1 (555) 000-0000"
           />
           {errors.phone && (
-            <p className="text-xs text-destructive">{errors.phone.message}</p>
+            <p className="text-destructive text-xs">{errors.phone.message}</p>
           )}
         </div>
 
@@ -95,17 +95,17 @@ export function ContactForm() {
             id="message"
             rows={4}
             {...register("message")}
-            className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm resize-none"
+            className="border-input bg-background flex min-h-[120px] w-full resize-none rounded-md border px-3 py-2 text-sm"
             placeholder="Tell me about your project..."
           />
           {errors.message && (
-            <p className="text-xs text-destructive">{errors.message.message}</p>
+            <p className="text-destructive text-xs">{errors.message.message}</p>
           )}
         </div>
 
         <Button
           type="submit"
-          className="w-full bg-primary"
+          className="bg-primary w-full"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Sending..." : "Send Message"}

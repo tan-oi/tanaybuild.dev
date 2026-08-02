@@ -1,25 +1,13 @@
-import AboutSection from "@/components/about-section";
-import CraftSection from "@/components/crafts/crafts-section";
 import ExperienceSection from "@/components/experience-section";
-
 import { Hero } from "@/components/hero/hero";
-
 import ProjectSection from "@/components/projects/project-section";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient text-foreground selection:bg-primary selection:text-primary-foreground ">
-      <main className="max-w-2xl mx-auto px-6 py-24 font-sans">
-        <Hero />
-        <ExperienceSection />
-        <ProjectSection />
-
-        <AboutSection />
-
-        <CraftSection />
-      </main>
-
-    
-    </div>
+    <>
+      <Hero />
+      <ExperienceSection />
+      <ProjectSection />
+    </>
   );
 }

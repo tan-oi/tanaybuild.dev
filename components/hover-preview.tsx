@@ -8,7 +8,11 @@ interface HoverPreviewProps {
   children: React.ReactNode;
 }
 
-export default function HoverPreview({ src, alt, children }: HoverPreviewProps) {
+export default function HoverPreview({
+  src,
+  alt,
+  children,
+}: HoverPreviewProps) {
   const [visible, setVisible] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const ref = useRef<HTMLDivElement>(null);
@@ -31,10 +35,10 @@ export default function HoverPreview({ src, alt, children }: HoverPreviewProps) 
 
       <div
         aria-hidden
-        className={`pointer-events-none absolute z-20 hidden md:block transition-all duration-200 ease-out ${
+        className={`pointer-events-none absolute z-20 hidden transition-all duration-200 ease-out md:block ${
           visible
-            ? "opacity-100 translate-y-0 scale-100"
-            : "opacity-0 translate-y-1 scale-95"
+            ? "translate-y-0 scale-100 opacity-100"
+            : "translate-y-1 scale-95 opacity-0"
         }`}
         style={{
           left: pos.x + 24,
@@ -42,13 +46,9 @@ export default function HoverPreview({ src, alt, children }: HoverPreviewProps) 
           width: 320,
         }}
       >
-        <div className="rounded-lg overflow-hidden border border-border/60 bg-card shadow-2xl shadow-black/40 rotate-[-1.5deg]">
+        <div className="border-border/60 bg-card rotate-[-1.5deg] overflow-hidden rounded-lg border shadow-2xl shadow-black/40">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt={alt ?? ""}
-            className="w-full h-auto block"
-          />
+          <img src={src} alt={alt ?? ""} className="block h-auto w-full" />
         </div>
       </div>
     </div>

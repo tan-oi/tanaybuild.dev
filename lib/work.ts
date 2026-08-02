@@ -20,7 +20,9 @@ function ensureDir() {
 
 export function getAllWork(): WorkEntry[] {
   ensureDir();
-  const fileNames = fs.readdirSync(workDirectory).filter((f) => f.endsWith(".mdx"));
+  const fileNames = fs
+    .readdirSync(workDirectory)
+    .filter((f) => f.endsWith(".mdx"));
   return fileNames.map((fileName) => {
     const slug = fileName.replace(/\.mdx$/, "");
     const fullPath = path.join(workDirectory, fileName);

@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     if (!parsed.success) {
       return NextResponse.json(
         { success: false, errors: parsed.error.flatten() },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
           chat_id: CHAT_ID,
           text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
         }),
-      }
+      },
     );
 
     if (!res.ok) {
